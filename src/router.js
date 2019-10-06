@@ -6,6 +6,7 @@ import Signup from "@/views/auth/Signup";
 import SignupFacebook from "@/views/auth/SignupFacebook";
 import ForgotPassword from "@/views/auth/ForgotPassword";
 import ForgotPasswordSuccess from "@/views/auth/ForgotPasswordSuccess";
+import ResetPassword from "@/views/auth/ResetPassword";
 
 Vue.use(Router);
 
@@ -44,5 +45,10 @@ export default new Router({
             path: '/forgotpasswordsuccess',
             name: 'forgotpasswordsuccess',
             component: ForgotPasswordSuccess
-        },]
+        },
+        {
+            path: '/resetpassword',
+            name: 'resetpassword',
+            component: ResetPassword
+        }]
 })
