@@ -16,11 +16,11 @@
       <a
         href="#"
         title
-        :class="{btn:true, 'btn-follow':true, active:follower.isFollow, disableButton:follower.id == yourId}"
+        :class="{btn:true, 'btn-follow':true, active:follower.isFollow}"
         @click.stop="follow(follower.id, index)"
+        v-if="follower.id != yourId"
       >
-        <span v-if="follower.id == yourId">You</span>
-        <span v-else-if="follower.isFollow">following</span>
+        <span v-if="follower.isFollow">following</span>
         <span v-else>follow</span>
       </a>
     </li>
