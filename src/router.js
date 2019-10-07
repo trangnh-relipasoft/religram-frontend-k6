@@ -8,6 +8,7 @@ import ForgotPassword from "@/views/auth/ForgotPassword";
 import ForgotPasswordSuccess from "@/views/auth/ForgotPasswordSuccess";
 import ResetPassword from "@/views/auth/ResetPassword";
 import VerifyToken from "@/views/auth/VerifyToken";
+import OtherProfile from '@/views/user/OtherProfile';
 
 Vue.use(Router);
 
@@ -56,5 +57,10 @@ export default new Router({
             path: '/verify',
             name: 'verify',
             component: VerifyToken
-        },]
+        },
+        {
+            path: '/user',
+            name: 'otherprofile',
+            component: OtherProfile
+        }]
 })
