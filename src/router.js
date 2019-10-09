@@ -7,6 +7,7 @@ import SignupFacebook from "@/views/auth/SignupFacebook";
 import ForgotPassword from "@/views/auth/ForgotPassword";
 import ForgotPasswordSuccess from "@/views/auth/ForgotPasswordSuccess";
 import ResetPassword from "@/views/auth/ResetPassword";
+import EditProfile from "@/views/user/EditProfile";
 
 Vue.use(Router);
 
@@ -50,5 +51,10 @@ export default new Router({
             path: '/resetpassword',
             name: 'resetpassword',
             component: ResetPassword
+        },
+        {
+            path: '/editprofile',
+            name: 'editprofile',
+            component: EditProfile
         }]
 })
