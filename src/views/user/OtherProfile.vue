@@ -50,7 +50,7 @@
             <div class="tab-content">
               <keep-alive>
                 <post v-if="isPost" :id="id"></post>
-                <follower v-if="isFollower" :id="id" :yourId="yourId"></follower>
+                <follower v-if="isFollower" :id="id" :yourId="yourId" :followers="followers"></follower>
               </keep-alive>
             </div>
           </div>
@@ -75,6 +75,7 @@ export default {
   created() {
     this.id = this.$route.query.id;
     this.getData();
+    this.getFollowers();
   },
 
   data() {
@@ -85,7 +86,8 @@ export default {
       isPost: true,
       isFollower: false,
       isFollowing: false,
-      yourId: localStorage.getItem("id")
+      yourId: localStorage.getItem("id"),
+      followers: []
     };
   },
 
@@ -93,6 +95,7 @@ export default {
     follow() {
       user.post(`/follow/${this.id}`).then(res => {
         this.getData();
+        this.getFollowers();
       });
     },
     getData() {
@@ -122,6 +125,17 @@ export default {
       (this.isPost = false),
         (this.isFollower = false),
         (this.isFollowing = true);
+    },
+
+    getFollowers() {
+      user
+        .get(`/${this.id}/follower`)
+        .then(res => {
+          this.followers = res.data;
+        })
+        .catch(err => {
+          console.log(err.response);
+        });
     }
   }
 };

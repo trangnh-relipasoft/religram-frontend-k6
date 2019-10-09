@@ -3,13 +3,13 @@
     <li v-for="(follower,index) in followers" :key="index">
       <div class="post-user">
         <div class="post-avatar">
-          <a href="#" title>
+          <a href @click="getUser(follower.id)" title>
             <img :src="follower.avatar" alt />
           </a>
         </div>
         <div class="post-userName">
           <p>
-            <a href="#" title>{{follower.username}}</a>
+            <a href @click="getUser(follower.id)" title>{{follower.username}}</a>
           </p>
         </div>
       </div>
@@ -32,25 +32,8 @@ import user from "../../axios/axios-user";
 export default {
   props: {
     id: String,
-    yourId: String
-  },
-
-  data() {
-    return {
-      followers: []
-    };
-  },
-
-  created() {
-    user
-      .get(`/${this.id}/follower`)
-      .then(res => {
-        this.followers = res.data;
-        console.log(this.followers);
-      })
-      .catch(err => {
-        console.log(err.response);
-      });
+    yourId: String,
+    followers: Array
   },
 
   methods: {
@@ -61,6 +44,10 @@ export default {
           this.followers[index].isFollow = !this.followers[index].isFollow;
         });
       }
+    },
+
+    getUser(userId) {
+      this.$router.push({ name: "otherprofile", query: { id: userId } });
     }
   }
 };
