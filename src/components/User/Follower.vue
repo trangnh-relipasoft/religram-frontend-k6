@@ -3,7 +3,7 @@
     <li v-for="(follower,index) in followers" :key="index">
       <div class="post-user">
         <div class="post-avatar">
-          <a href @click="getUser(follower.id)" title>
+          <a title href @click="getUser(follower.id)">
             <img :src="follower.avatar" alt />
           </a>
         </div>
@@ -47,6 +47,7 @@ export default {
     },
 
     getUser(userId) {
+      console.log(this.$router);
       this.$router.push({ name: "otherprofile", query: { id: userId } });
     }
   }

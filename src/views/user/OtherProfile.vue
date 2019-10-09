@@ -2,7 +2,7 @@
   <div class="wrap">
     <div class="header">
       <div class="logo">
-        <a href="#" title>Religram</a>
+        <a href @click="$router.push({name: 'home'})" title>Religram</a>
         <p class="slogan">Heaven in your hands</p>
       </div>
     </div>
@@ -51,6 +51,7 @@
               <keep-alive>
                 <post v-if="isPost" :id="id"></post>
                 <follower v-if="isFollower" :id="id" :yourId="yourId" :followers="followers"></follower>
+                <follower v-if="isFollowing" :id="id" :yourId="yourId" :followers="followings"></follower>
               </keep-alive>
             </div>
           </div>
@@ -76,6 +77,7 @@ export default {
     this.id = this.$route.query.id;
     this.getData();
     this.getFollowers();
+    this.getFollowings();
   },
 
   data() {
@@ -87,7 +89,8 @@ export default {
       isFollower: false,
       isFollowing: false,
       yourId: localStorage.getItem("id"),
-      followers: []
+      followers: [],
+      followings: []
     };
   },
 
@@ -132,6 +135,17 @@ export default {
         .get(`/${this.id}/follower`)
         .then(res => {
           this.followers = res.data;
+        })
+        .catch(err => {
+          console.log(err.response);
+        });
+    },
+
+    getFollowings() {
+      user
+        .get(`/${this.id}/following`)
+        .then(res => {
+          this.followings = res.data;
         })
         .catch(err => {
           console.log(err.response);
