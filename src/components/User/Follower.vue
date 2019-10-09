@@ -38,17 +38,17 @@ export default {
 
   methods: {
     follow(targetId, index) {
-      console.log(targetId, index, this.yourId);
       if (targetId != this.yourId) {
         user.post(`/follow/${targetId}`).then(res => {
           this.followers[index].isFollow = !this.followers[index].isFollow;
+          this.$emit("updateFollow");
         });
       }
     },
 
     getUser(userId) {
-      console.log(this.$router);
-      this.$router.push({ name: "otherprofile", query: { id: userId } });
+      if (userId == this.yourId) this.$router.push({ name: "profile" });
+      else this.$router.push({ name: "otherprofile", query: { id: userId } });
     }
   }
 };

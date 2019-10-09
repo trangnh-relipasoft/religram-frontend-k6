@@ -2,7 +2,7 @@
     <div class="wrap">
         <div class="header">
             <div class="logo">
-                <a href="#" title>Religram</a>
+                <a href title>Religram</a>
                 <p class="slogan">Heaven in your hands</p>
             </div>
         </div>

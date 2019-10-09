@@ -20,8 +20,7 @@
                 <a href title>{{userData.username}}</a>
               </p>
               <p>
-                <a v-show="userData.follow" @click="follow" class="btn-follow btn active">Following</a>
-                <a v-show="!userData.follow" @click="follow" class="btn-follow-user btn">Follow</a>
+                <a class="edit-proflie btn">Edit profile</a>
               </p>
             </div>
           </div>
@@ -50,7 +49,13 @@
             <div class="tab-content">
               <keep-alive>
                 <post v-if="isPost" :id="id"></post>
-                <follower v-if="isFollower" :id="id" :yourId="yourId" :followers="followers"></follower>
+                <follower
+                  v-if="isFollower"
+                  :id="id"
+                  :yourId="yourId"
+                  :followers="followers"
+                  @updateFollow="update"
+                ></follower>
                 <follower v-if="isFollowing" :id="id" :yourId="yourId" :followers="followings"></follower>
               </keep-alive>
             </div>
@@ -74,7 +79,7 @@ export default {
     Follower
   },
   created() {
-    this.id = this.$route.query.id;
+    this.id = localStorage.getItem("id");
     this.getData();
     this.getFollowers();
     this.getFollowings();
@@ -95,12 +100,6 @@ export default {
   },
 
   methods: {
-    follow() {
-      user.post(`/follow/${this.id}`).then(res => {
-        this.getData();
-        this.getFollowers();
-      });
-    },
     getData() {
       user
         .get(`/${this.id}`)
@@ -150,6 +149,12 @@ export default {
         .catch(err => {
           console.log(err.response);
         });
+    },
+
+    update() {
+      this.getData();
+      this.getFollowers();
+      this.getFollowings();
     }
   }
 };

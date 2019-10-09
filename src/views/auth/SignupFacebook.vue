@@ -2,7 +2,7 @@
   <div class="wrap">
     <div class="header">
       <div class="logo">
-        <a href="#" title>Religram</a>
+        <a href title>Religram</a>
         <p class="slogan">Heaven in your hands</p>
       </div>
     </div>
@@ -65,7 +65,7 @@
       <div class="sign-up">
         <p>
           Have a account?
-          <a href="#" title>Log in</a>
+          <a href @click="$router.push({name: 'login'})" title>Log in</a>
         </p>
       </div>
     </div>
