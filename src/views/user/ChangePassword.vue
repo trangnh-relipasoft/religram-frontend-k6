@@ -8,13 +8,14 @@
             </div>
         </div>
         <div class="box-back box-back-v2">
-            <a href title=""><i aria-hidden="true" class="fa fa-angle-left"></i>Password change</a>
+            <a @click="handleReturnClicked" href title=""><i aria-hidden="true" class="fa fa-angle-left"></i>Password
+                change</a>
         </div>
         <div class="content">
             <div class="profile-header">
                 <div class="post-user">
                     <div class="post-avatar post-avatar-small">
-                        <a href title=""><img alt="" :src="avatar"/></a>
+                        <a href title=""><img :src="avatar" alt=""/></a>
                     </div>
                     <div class="post-userName">
                         <p><a @click="usernameOnClicked" href title="">{{username}}</a></p>
@@ -49,11 +50,11 @@
             <div class="post-event">
                 <span class="icon-home"><a href title=""><img alt="" src="images/footer-icon-home.png"/></a></span>
                 <span class="icon-search"><a href title=""><img alt=""
-                                                                    src="images/footer-icon-search.png"/></a></span>
+                                                                src="images/footer-icon-search.png"/></a></span>
                 <span class="icon-plus"><a href title=""><img alt="" src="images/footer-icon-plus.png"/></a></span>
                 <span class="post-icon-like"><a href title=""></a></span>
                 <span class="icon-my-page"><a href title=""><img alt=""
-                                                                     src="images/footer-icon-my-page.png"/></a></span>
+                                                                 src="images/footer-icon-my-page.png"/></a></span>
             </div>
         </div>
         <div class="message message-success" v-if="isSuccess">
@@ -87,6 +88,9 @@
             password, confirmPassword
         },
         methods: {
+            handleReturnClicked() {
+                this.$router.push({name: 'editprofile'})
+            },
             handleForgotPasswordClicked() {
                 this.$router.push({name: 'forgotpassword'})
             },
