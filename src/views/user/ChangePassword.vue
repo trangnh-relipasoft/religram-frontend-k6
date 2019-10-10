@@ -27,20 +27,20 @@
                         <label>Current password</label>
                         <input class="input-text" id="change_pw_current" name="change-pw-current" placeholder=""
                                type="password"
-                               value="">
+                               v-model="currentPassword" value="">
                         <label>New password</label>
                         <input :class="{invalid: $v.password.$error}" id="change_pw_new" name="change-pw-new"
                                placeholder="" type="password"
-                               value="">
+                               v-model="password" value="">
                         <label>Confirm password</label>
                         <input :class="{invalid: $v.confirmPassword.$error}" id="change-pw-confirm"
                                name="change-pw-confirm" placeholder=""
                                type="password"
-                               value="">
+                               v-model="confirmPassword" value="">
                         <button class="btn btn-full" id="change_pw_submit" name="change-pw-submit" type="submit">Change
                             password
                         </button>
-                        <p><a href="#" title="">Forgot password</a></p>
+                        <p><a @click="handleForgotPasswordClicked" href="#" title="">Forgot password</a></p>
                     </form>
                 </div>
             </div>
@@ -59,25 +59,64 @@
         <div class="message message-success" v-if="isSuccess">
             <p>Save successfuly!</p>
         </div>
+        <div class="message message-error" v-show="error != ''">
+            <p>{{error}}</p>
+        </div>
     </div>
 
 </template>
 
 <script>
+    import {confirmPassword, password} from "@/validate/validate";
+    import auth from "@/axios/axios-auth";
+
     export default {
         name: "ChangePassword",
         data() {
             return {
                 username: localStorage.getItem('username'),
-                isSuccess: false
+                isSuccess: false,
+                currentPassword: '',
+                password: '',
+                confirmPassword: '',
+                error: ''
             }
         },
+        validations: {
+            password, confirmPassword
+        },
         methods: {
+            handleForgotPasswordClicked() {
+                this.$router.push({name: 'forgotpassword'})
+            },
             usernameOnClicked() {
                 this.$router.push({name: 'profile'})
             },
             onSubmit() {
-
+                this.$v.$touch();
+                if (!this.$v.$invalid) {
+                    let userData = {
+                        currentPassword: this.currentPassword,
+                        newPassword: this.password,
+                    };
+                    auth.post('changepassword', userData, {
+                        headers: {
+                            Authorization: 'Bearer ' + window.localStorage.getItem('token')
+                        }
+                    }).then(res => {
+                        if (res.status === 200) {
+                            this.isSuccess = true;
+                            setTimeout(() => this.isSuccess = false, 2000);
+                            this.$store.dispatch("clearAuth");
+                            this.$router.push({name: 'login'})
+                        }
+                    }).catch(err => {
+                        if (err) {
+                            this.error = err.response.data.message;
+                            setTimeout(() => this.error = "", 2000)
+                        }
+                    });
+                }
             },
 
         }

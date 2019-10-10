@@ -8,6 +8,7 @@ import ForgotPassword from "@/views/auth/ForgotPassword";
 import ForgotPasswordSuccess from "@/views/auth/ForgotPasswordSuccess";
 import ResetPassword from "@/views/auth/ResetPassword";
 import EditProfile from "@/views/user/EditProfile";
+import ChangePassword from "@/views/user/ChangePassword";
 
 Vue.use(Router);
 
@@ -56,5 +57,10 @@ export default new Router({
             path: '/editprofile',
             name: 'editprofile',
             component: EditProfile
+        },
+        {
+            path: '/changepassword',
+            name: 'changepassword',
+            component: ChangePassword
         }]
 })
