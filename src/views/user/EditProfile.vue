@@ -15,11 +15,10 @@
                         </div>
                         <div class="post-userName">
                             <p><a @click="usernameOnClicked" href="#" title="">{{constusername}}</a></p>
-                            <p><a class="btn-change-proflie btn" href="#" title="">Change profile photo</a><a
-                                    class="btn-change-pw btn"
-                                    href="#"
-                                    title="">Change
-                                password</a></p>
+                            <p><a @click="handleChangeAvatarClicked" class="btn-change-proflie btn" href="#" title="">
+                                Change profile photo</a>
+                                <a @click="handleChangePasswordClicked" class="btn-change-pw btn" href="#" title="">
+                                    Change password</a></p>
                         </div>
                     </div>
                 </div>
@@ -81,7 +80,7 @@
 
 <script>
 
-    import {email, username, fullname} from "@/validate/validate";
+    import {email, fullname, username} from "@/validate/validate";
     import axios_user from "@/axios/axios-user";
 
     export default {
@@ -120,6 +119,12 @@
             handleEmailInput(value) {
                 this.email = value;
                 this.$v.email.$touch();
+            },
+            handleChangeAvatarClicked() {
+                this.$router.push({name: 'changeprofilephoto'})
+            },
+            handleChangePasswordClicked() {
+                this.$router.push({name: 'changepassword'})
             },
             onSubmit() {
                 this.$v.$touch();
