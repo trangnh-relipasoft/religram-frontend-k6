@@ -14,7 +14,7 @@
             <div class="profile-header">
                 <div class="post-user">
                     <div class="post-avatar post-avatar-small">
-                        <a href title=""><img alt="" src="images/image-thumb.jpg"/></a>
+                        <a href title=""><img alt="" :src="avatar"/></a>
                     </div>
                     <div class="post-userName">
                         <p><a @click="usernameOnClicked" href title="">{{username}}</a></p>
@@ -74,6 +74,7 @@
         name: "ChangePassword",
         data() {
             return {
+                avatar: localStorage.getItem('avatar'),
                 username: localStorage.getItem('username'),
                 isSuccess: false,
                 currentPassword: '',
