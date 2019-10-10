@@ -69,6 +69,9 @@
         </p>
       </div>
     </div>
+    <div class="message message-error" v-show="error!='' ">
+      <p>{{error}}</p>
+    </div>
   </div>
 </template>
 
@@ -86,7 +89,8 @@ export default {
       email: localStorage.getItem("email"),
       avatar: localStorage.getItem("avatar"),
       password: "",
-      avatar2: String
+      avatar2: String,
+      error: ''
     };
   },
   validations: {
