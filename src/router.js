@@ -9,6 +9,9 @@ import ForgotPasswordSuccess from "@/views/auth/ForgotPasswordSuccess";
 import ResetPassword from "@/views/auth/ResetPassword";
 import EditProfile from "@/views/user/EditProfile";
 import ChangePassword from "@/views/user/ChangePassword";
+import VerifyToken from "@/views/auth/VerifyToken";
+import OtherProfile from '@/views/user/OtherProfile';
+import Profile from '@/views/user/Profile';
 
 Vue.use(Router);
 
@@ -62,5 +65,20 @@ export default new Router({
             path: '/changepassword',
             name: 'changepassword',
             component: ChangePassword
+        },
+        {
+            path: '/verify',
+            name: 'verify',
+            component: VerifyToken
+        },
+        {
+            path: '/user',
+            name: 'otherprofile',
+            component: OtherProfile
+        },
+        {
+            path: '/profile',
+            name: 'profile',
+            component: Profile
         }]
 })

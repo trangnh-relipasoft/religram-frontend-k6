@@ -11,13 +11,12 @@
                 .get(path)
                 .then(res => {
                     if (res.status == 200) {
-                        this.$store.state.token = token;
+                        localStorage.setItem('token', token);
                         this.$router.push({name: "resetpassword"});
                     }
                 })
                 .catch(err => {
                     if (err) {
-                        console.log(err.response);
                         this.$router.push({
                             name: "forgotpassword",
                             query: {isError: true}

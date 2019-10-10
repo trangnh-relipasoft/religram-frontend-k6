@@ -2,7 +2,7 @@
     <div class="wrap">
         <div class="header">
             <div class="logo">
-                <a href="#" title>Religram</a>
+                <a href title>Religram</a>
                 <p class="slogan">Heaven in your hands</p>
             </div>
         </div>
@@ -65,9 +65,11 @@
 
         created() {
             this.isError = this.$route.query.isError;
-            if (this.isError)
+            if (this.isError) {
                 this.error =
                     "It looks like you clicked on an invalid password reset link. Please try again.";
+                setTimeout(() => this.error = '', 2000)
+            }
         },
 
         methods: {
