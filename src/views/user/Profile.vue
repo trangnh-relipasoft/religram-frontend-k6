@@ -20,7 +20,7 @@
                 <a href title>{{userData.username}}</a>
               </p>
               <p>
-                <a class="edit-proflie btn" @click="this.$router.push({name: 'editprofile'})">Edit profile</a>
+                <a class="edit-proflie btn" @click="$router.push({name: 'editprofile'})">Edit profile</a>
               </p>
             </div>
           </div>
@@ -97,6 +97,8 @@ export default {
       userData: {},
       isFollow: Boolean,
       isPost: true,
+      isFollower: false,
+      isFollowing: false,
       yourId: localStorage.getItem("id"),
       followers: [],
       followings: []
