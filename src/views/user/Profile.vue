@@ -20,7 +20,7 @@
                 <a href title>{{userData.username}}</a>
               </p>
               <p>
-                <a class="edit-proflie btn">Edit profile</a>
+                <a class="edit-proflie btn" @click="this.$router.push({name: 'editprofile'})">Edit profile</a>
               </p>
             </div>
           </div>

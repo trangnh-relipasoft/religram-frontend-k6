@@ -3,21 +3,21 @@
     <div class="wrap">
         <div class="header">
             <div class="logo">
-                <a href="#" title="">Religram</a>
+                <a href title="">Religram</a>
                 <p class="slogan">Heaven in your hands</p>
             </div>
         </div>
         <div class="box-back box-back-v2">
-            <a href="#" title=""><i aria-hidden="true" class="fa fa-angle-left"></i>Password change</a>
+            <a href title=""><i aria-hidden="true" class="fa fa-angle-left"></i>Password change</a>
         </div>
         <div class="content">
             <div class="profile-header">
                 <div class="post-user">
                     <div class="post-avatar post-avatar-small">
-                        <a href="#" title=""><img alt="" src="images/image-thumb.jpg"/></a>
+                        <a href title=""><img alt="" src="images/image-thumb.jpg"/></a>
                     </div>
                     <div class="post-userName">
-                        <p><a @click="usernameOnClicked" href="#" title="">{{username}}</a></p>
+                        <p><a @click="usernameOnClicked" href title="">{{username}}</a></p>
                     </div>
                 </div>
             </div>
@@ -40,19 +40,19 @@
                         <button class="btn btn-full" id="change_pw_submit" name="change-pw-submit" type="submit">Change
                             password
                         </button>
-                        <p><a @click="handleForgotPasswordClicked" href="#" title="">Forgot password</a></p>
+                        <p><a @click="handleForgotPasswordClicked" href title="">Forgot password</a></p>
                     </form>
                 </div>
             </div>
         </div>
         <div class="footer">
             <div class="post-event">
-                <span class="icon-home"><a href="#" title=""><img alt="" src="images/footer-icon-home.png"/></a></span>
-                <span class="icon-search"><a href="#" title=""><img alt=""
+                <span class="icon-home"><a href title=""><img alt="" src="images/footer-icon-home.png"/></a></span>
+                <span class="icon-search"><a href title=""><img alt=""
                                                                     src="images/footer-icon-search.png"/></a></span>
-                <span class="icon-plus"><a href="#" title=""><img alt="" src="images/footer-icon-plus.png"/></a></span>
-                <span class="post-icon-like"><a href="#" title=""></a></span>
-                <span class="icon-my-page"><a href="#" title=""><img alt=""
+                <span class="icon-plus"><a href title=""><img alt="" src="images/footer-icon-plus.png"/></a></span>
+                <span class="post-icon-like"><a href title=""></a></span>
+                <span class="icon-my-page"><a href title=""><img alt=""
                                                                      src="images/footer-icon-my-page.png"/></a></span>
             </div>
         </div>
@@ -106,9 +106,11 @@
                     }).then(res => {
                         if (res.status === 200) {
                             this.isSuccess = true;
-                            setTimeout(() => this.isSuccess = false, 2000);
+                            setTimeout(() => {
+                                this.isSuccess = false;
+                                this.$router.push({name: 'login'})
+                            }, 2000);
                             this.$store.dispatch("clearAuth");
-                            this.$router.push({name: 'login'})
                         }
                     }).catch(err => {
                         if (err) {
