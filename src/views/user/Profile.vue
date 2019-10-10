@@ -33,12 +33,12 @@
             <div class="tab-title">
               <a :class="{active:isPost}" @click="showPost" style="cursor:pointer">
                 <span>{{userData.post}}</span>
-                <p v-if="userData.post >1">posts</p>
+                <p v-if="userData.post >1 || userData.post==0">posts</p>
                 <p v-else>post</p>
               </a>
               <a :class="{active:isFollower}" @click="showFollower" style="cursor:pointer">
                 <span>{{userData.follower}}</span>
-                <p v-if="userData.follower >1">followers</p>
+                <p v-if="userData.follower >1 || userData.follower ==0">followers</p>
                 <p v-else>follower</p>
               </a>
               <a :class="{active:isFollowing}" @click="showFollowing" style="cursor:pointer">
@@ -56,7 +56,13 @@
                   :followers="followers"
                   @updateFollow="update"
                 ></follower>
-                <follower v-if="isFollowing" :id="id" :yourId="yourId" :followers="followings"></follower>
+                <follower
+                  v-if="isFollowing"
+                  :id="id"
+                  :yourId="yourId"
+                  :followers="followings"
+                  @updateFollow="update"
+                ></follower>
               </keep-alive>
             </div>
           </div>
@@ -91,8 +97,6 @@ export default {
       userData: {},
       isFollow: Boolean,
       isPost: true,
-      isFollower: false,
-      isFollowing: false,
       yourId: localStorage.getItem("id"),
       followers: [],
       followings: []

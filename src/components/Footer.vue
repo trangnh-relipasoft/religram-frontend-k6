@@ -2,7 +2,7 @@
   <div class="footer">
     <div class="post-event">
       <span class="icon-home">
-        <a href="#" title>
+        <a href @click="$router.push({name: 'home'})" title>
           <img src="images/footer-icon-home.png" alt />
         </a>
       </span>
@@ -20,7 +20,7 @@
         <a href="#" title></a>
       </span>
       <span class="icon-my-page">
-        <a href="#" title>
+        <a href @click="$router.push({name: 'profile'})" title>
           <img src="images/footer-icon-my-page.png" alt />
         </a>
       </span>

@@ -14,7 +14,7 @@
         </div>
       </div>
       <a
-        href="#"
+        href
         title
         :class="{btn:true, 'btn-follow':true, active:follower.isFollow}"
         @click.stop="follow(follower.id, index)"

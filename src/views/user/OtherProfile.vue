@@ -34,12 +34,12 @@
             <div class="tab-title">
               <a :class="{active:isPost}" @click="showPost" style="cursor:pointer">
                 <span>{{userData.post}}</span>
-                <p v-if="userData.post >1">posts</p>
+                <p v-if="userData.post >1 || userData.post==0">posts</p>
                 <p v-else>post</p>
               </a>
               <a :class="{active:isFollower}" @click="showFollower" style="cursor:pointer">
                 <span>{{userData.follower}}</span>
-                <p v-if="userData.follower >1">followers</p>
+                <p v-if="userData.follower >1 || userData.follower==0">followers</p>
                 <p v-else>follower</p>
               </a>
               <a :class="{active:isFollowing}" @click="showFollowing" style="cursor:pointer">
