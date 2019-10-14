@@ -12,7 +12,7 @@
         </p>
         <p>
           <span class="post-date">
-            <timeago :datetime="post.createAt"></timeago>
+            <timeago :datetime="post.createAt" :autoUpdate="1"></timeago>
           </span>
         </p>
       </div>
@@ -39,13 +39,41 @@
     <div class="post-title">
       <p>{{post.content}}</p>
     </div>
+    <p
+      class="post-view-all"
+      v-if="post.comments.length>3"
+      style="cursor: pointer"
+    >View all {{post.comments.length}} comments</p>
+    <div class="post-comment" v-for="(comment,index) in cmShow" :key="index">
+      <comment :comment="comment"></comment>
+    </div>
   </div>
 </template>
 
 <script>
+import Comment from "@/components/Home/Comment";
 export default {
+  components: {
+    Comment
+  },
   props: {
     post: Object
+  },
+  data() {
+    return {
+      cmShow: []
+    };
+  },
+  created() {
+    if (this.post.comments.length <= 3)
+      this.cmShow = this.cmShow.concat(this.post.comments);
+    else {
+      this.cmShow = this.cmShow.concat(this.post.comments[0]);
+      this.cmShow = this.cmShow.concat(this.post.comments[1]);
+      this.cmShow = this.cmShow.concat(
+        this.post.comments[this.post.comments.length - 1]
+      );
+    }
   }
 };
 </script>

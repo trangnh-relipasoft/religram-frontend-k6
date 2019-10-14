@@ -3,6 +3,8 @@
     <div class="content">
       <div class="post-list" v-for="(post,index) in posts" :key="index">
         <post :post="post"></post>
+        <br />
+        <br />
       </div>
     </div>
     <footers></footers>
