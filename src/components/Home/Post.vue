@@ -47,6 +47,10 @@
     <div class="post-comment" v-for="(comment,index) in cmShow" :key="index">
       <comment :comment="comment"></comment>
     </div>
+    <form>
+      <input type="text" placeholder="Add comment" class="input-text" />
+      <img src="../../../public/images/send-icon.png" alt />
+    </form>
   </div>
 </template>
 
@@ -77,3 +81,24 @@ export default {
   }
 };
 </script>
+
+<style scoped>
+form {
+  display: inline-block;
+  position: relative;
+  width: 100%;
+}
+form input {
+  padding-right: 4.6em;
+  width: 96%;
+}
+form img {
+  background-color: Transparent;
+  position: absolute;
+  top: 3.5px;
+  right: 20px;
+  width: 25px;
+  cursor: pointer;
+  color: beige;
+}
+</style>
