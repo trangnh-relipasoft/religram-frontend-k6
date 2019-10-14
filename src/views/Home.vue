@@ -1,17 +1,9 @@
 <template>
-  <div>
-    <div class="home">
-      <img alt="Relipa Software" src="../assets/Relipa-text-2.png" />
-      <HelloWorld msg="Welcome" />
-      <p v-show="!this.$store.state.token == ''">Your logged in</p>
-      <br />
-      <p>Wanna click something? Hmmmmm</p>
-      <button @click="login" class="btn btn-primary" v-show="this.$store.getters.token ==''">Log in</button>
-      <button
-        @click="logout"
-        class="btn btn-primary"
-        v-show="this.$store.getters.token !=''"
-      >Log out</button>
+  <div class="wrap">
+    <div class="content">
+      <div class="post-list" v-for="(post,index) in posts" :key="index">
+        <post :post="post"></post>
+      </div>
     </div>
     <footers></footers>
   </div>
@@ -19,29 +11,41 @@
 
 <script>
 // @ is an alias to /src
-import HelloWorld from "@/components/HelloWorld.vue";
 import Footers from "@/components/Footer.vue";
+import postApi from "@/axios/axios-post";
+import Post from "@/components/Home/Post";
 
 export default {
   name: "home",
   components: {
-    HelloWorld,
-    Footers
+    Footers,
+    Post
+  },
+
+  created() {
+    postApi
+      .get("", {
+        params: {
+          page: 0
+        }
+      })
+      .then(({ data }) => {
+        this.posts = data.list;
+        console.log(this.posts);
+      })
+      .catch(err => {
+        if (err) console.log(err.response);
+      });
+  },
+
+  data() {
+    return {
+      posts: []
+    };
   },
   mounted() {
     if (localStorage.getItem("token") === null) {
       this.$router.push("/login");
-    }
-  },
-
-  methods: {
-    logout() {
-      this.$store.dispatch("clearAuth");
-      console.log(this.$store.state.username);
-    },
-
-    login() {
-      this.$router.push({ name: "login" });
     }
   }
 };
