@@ -1,5 +1,6 @@
 <template>
   <div id="app">
+    <headers></headers>
     <keep-alive>
       <router-view :key="$route.fullPath" />
     </keep-alive>
@@ -7,7 +8,11 @@
 </template>
 
 <script>
+import Headers from "@/components/Header"
 export default {
+  components:{
+    Headers
+  },
   created() {
     // this.$router.push({ name: "login" });
     this.$store.dispatch("tryToLogin");

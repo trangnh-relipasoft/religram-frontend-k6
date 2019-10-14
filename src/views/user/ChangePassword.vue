@@ -1,12 +1,5 @@
 <template>
-
     <div class="wrap">
-        <div class="header">
-            <div class="logo">
-                <a href title="">Religram</a>
-                <p class="slogan">Heaven in your hands</p>
-            </div>
-        </div>
         <div class="box-back box-back-v2">
             <a @click="handleReturnClicked" href title=""><i aria-hidden="true" class="fa fa-angle-left"></i>Password
                 change</a>
