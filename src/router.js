@@ -8,10 +8,14 @@ import ForgotPassword from "@/views/auth/ForgotPassword";
 import ForgotPasswordSuccess from "@/views/auth/ForgotPasswordSuccess";
 import ResetPassword from "@/views/auth/ResetPassword";
 import EditProfile from "@/views/user/EditProfile";
+
 import ChangePassword from "@/views/user/ChangePassword";
 import VerifyToken from "@/views/auth/VerifyToken";
 import OtherProfile from '@/views/user/OtherProfile';
 import Profile from '@/views/user/Profile';
+
+import ImageModal from "@/components/ImageModal";
+
 
 Vue.use(Router);
 
@@ -80,5 +84,9 @@ export default new Router({
             path: '/profile',
             name: 'profile',
             component: Profile
+        }, {
+            path: '/test',
+            name: 'test',
+            component: ImageModal
         }]
 })
