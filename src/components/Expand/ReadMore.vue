@@ -2,9 +2,9 @@
   <div>
     <div v-if="isTooLong || isTooManyLine" @click="isExpand = !isExpand">
       <div v-if="isExpand == false">
-        <p style="display: inline" v-if="isTooLong">{{text.slice(0,this.maxLength-1)}}</p>
-        <p style="display: inline" v-else-if="isTooManyLine">{{textIfTooManyLine}}</p>
-        <p id="readmore" style="display: inline" @click.stop="isExpand = !isExpand">... read more</p>
+        <p v-if="isTooLong">{{text.slice(0,this.maxLength-1)}}</p>
+        <p v-else-if="isTooManyLine">{{textIfTooManyLine}}</p>
+        <p id="readmore" @click.stop="isExpand = !isExpand">... read more</p>
       </div>
       <div v-else>
         <p>{{text}}</p>
@@ -55,10 +55,17 @@ export default {
 <style scoped>
 p {
   white-space: pre-line;
+  color: rgb(48, 46, 46);
+  font-weight: normal;
+  display: inline;
   cursor: default;
 }
 #readmore {
-  color: rgb(185, 185, 185);
+  color: rgb(74, 116, 207);
   cursor: pointer;
+}
+
+#readmore:hover {
+  color: rgb(16, 112, 156);
 }
 </style>
