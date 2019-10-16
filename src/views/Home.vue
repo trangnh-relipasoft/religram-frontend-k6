@@ -6,6 +6,10 @@
         <br />
         <br />
       </div>
+      <infinite-loading @infinite="infiniteHandler" spinner="spiral">
+        <span slot="no-more">...</span>
+        <div slot="no-results">No post found</div>
+      </infinite-loading>
     </div>
     <footers></footers>
   </div>
@@ -16,33 +20,61 @@
 import Footers from "@/components/Footer.vue";
 import postApi from "@/axios/axios-post";
 import Post from "@/components/Home/Post";
+import InfiniteLoading from "vue-infinite-loading";
 
 export default {
   name: "home",
   components: {
     Footers,
-    Post
+    Post,
+    InfiniteLoading
   },
 
-  created() {
-    postApi
-      .get("", {
-        params: {
-          page: 0
-        }
-      })
-      .then(({ data }) => {
-        this.posts = data.list;
-        console.log(this.posts);
-      })
-      .catch(err => {
-        if (err) console.log(err.response);
-      });
+  // created() {
+  //   postApi
+  //     .get("", {
+  //       params: {
+  //         page: 0
+  //       }
+  //     })
+  //     .then(({ data }) => {
+  //       this.posts = data.list;
+  //       console.log(this.posts);
+  //     })
+  //     .catch(err => {
+  //       if (err) console.log(err.response);
+  //     });
+  // },
+
+  methods: {
+    infiniteHandler($state) {
+      setTimeout(() => {
+        postApi
+          .get("", {
+            params: {
+              page: this.page
+            }
+          })
+          .then(({ data }) => {
+            if (data.list.length) {
+              this.posts = this.posts.concat(data.list);
+              this.page++;
+              $state.loaded();
+            } else {
+              $state.complete();
+            }
+          })
+          .catch(err => {
+            console.log(err);
+          });
+      }, 1000);
+    }
   },
 
   data() {
     return {
-      posts: []
+      posts: [],
+      page: 0
     };
   },
   mounted() {
