@@ -5,16 +5,19 @@
         <div class="profile-header">
           <div class="post-user">
             <div class="post-avatar">
-              <a href title>
+              <a title>
                 <img :src="userData.avatar" alt />
               </a>
             </div>
             <div class="post-userName">
               <p>
-                <a href title>{{userData.username}}</a>
+                <a title>{{userData.username}}</a>
               </p>
               <p>
-                <a class="edit-proflie btn" @click="$router.push({name: 'editprofile'})">Edit profile</a>
+                <a
+                  class="edit-proflie btn"
+                  @click="$router.push({name: 'editprofile'})"
+                >Edit profile</a>
               </p>
             </div>
           </div>
@@ -76,7 +79,7 @@ export default {
   components: {
     Post,
     Footers,
-    Follower,
+    Follower
   },
   created() {
     this.id = localStorage.getItem("id");
@@ -87,7 +90,7 @@ export default {
 
   data() {
     return {
-      id: Number,
+      id: "",
       userData: {},
       isFollow: Boolean,
       isPost: true,

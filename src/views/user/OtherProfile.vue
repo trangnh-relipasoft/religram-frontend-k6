@@ -5,13 +5,13 @@
         <div class="profile-header">
           <div class="post-user">
             <div class="post-avatar">
-              <a href title>
+              <a title>
                 <img :src="userData.avatar" alt />
               </a>
             </div>
             <div class="post-userName">
               <p>
-                <a href title>{{userData.username}}</a>
+                <a title>{{userData.username}}</a>
               </p>
               <p>
                 <a v-show="userData.follow" @click="follow" class="btn-follow btn active">Following</a>
@@ -78,7 +78,7 @@ export default {
 
   data() {
     return {
-      id: String,
+      id: "",
       userData: {},
       isFollow: Boolean,
       isPost: true,

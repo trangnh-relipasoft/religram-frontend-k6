@@ -59,7 +59,7 @@
       <div class="sign-up">
         <p>
           Have a account?
-          <a href @click="$router.push({name: 'login'})" title>Log in</a>
+          <a @click="$router.push({name: 'login'})" title>Log in</a>
         </p>
       </div>
     </div>

@@ -10,7 +10,7 @@
         </div>
       </div>
       <div class="box-back">
-        <a href @click="$router.push({name:'login'})" title>Back to log in</a>
+        <a @click="$router.push({name:'login'})" title>Back to log in</a>
       </div>
     </div>
   </div>

@@ -2,13 +2,15 @@
   <div class="post-item">
     <div class="post-user">
       <div class="post-avatar">
-        <a title>
+        <a @click="$router.push({name: 'otherprofile', query:{id : post.user.id}})">
           <img :src="post.user.avatar" alt />
         </a>
       </div>
       <div class="post-userName">
         <p>
-          <a title>{{post.user.username}}</a>
+          <a
+            @click="$router.push({name: 'otherprofile', query:{id : post.user.id}})"
+          >{{post.user.username}}</a>
         </p>
         <p>
           <span class="post-date">
@@ -25,13 +27,13 @@
     <div class="post-event">
       <p>
         <span class="post-icon-like">
-          <a href="#" title></a>
+          <a title></a>
         </span>
         <span class="post-icon-comment">
-          <a href="#" title></a>
+          <a title></a>
         </span>
         <span class="post-icon-upload">
-          <a href="#" title></a>
+          <a title></a>
         </span>
       </p>
       <p>{{post.likes.length}} likes</p>
@@ -94,7 +96,7 @@ export default {
       postApi
         .post(`${this.post.id}/comment`, {
           userId: window.localStorage.getItem("id"),
-          comment: this.commentMessage,
+          comment: this.commentMessage.trim(),
           hashtags: []
         })
         .then(res => {
@@ -103,7 +105,7 @@ export default {
               avatar: window.localStorage.getItem("avatar"),
               username: window.localStorage.getItem("username")
             },
-            content: this.commentMessage
+            content: this.commentMessage.trim()
           });
           this.commentMessage = "";
         });

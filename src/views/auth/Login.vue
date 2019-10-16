@@ -45,13 +45,13 @@
                     </p>
                 </div>
                 <p class="forgot-pass">
-                    <a @click="$router.push({name: 'forgotpassword'})" href title>Forgot password?</a>
+                    <a @click="$router.push({name: 'forgotpassword'})" title>Forgot password?</a>
                 </p>
             </div>
             <div class="sign-up">
                 <p>
                     Don't have an account?
-                    <a @click="signup" href>Sign up</a>
+                    <a @click="signup">Sign up</a>
                 </p>
             </div>
         </div>

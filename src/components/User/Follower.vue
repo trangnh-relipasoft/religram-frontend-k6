@@ -3,21 +3,20 @@
     <li v-for="(follower,index) in followers" :key="index">
       <div class="post-user">
         <div class="post-avatar">
-          <a title href @click="getUser(follower.id)">
+          <a @click="getUser(follower.id)">
             <img :src="follower.avatar" alt />
           </a>
         </div>
         <div class="post-userName">
           <p>
-            <a href @click="getUser(follower.id)" title>{{follower.username}}</a>
+            <a @click="getUser(follower.id)" title>{{follower.username}}</a>
           </p>
         </div>
       </div>
       <a
-        href
         title
         :class="{btn:true, 'btn-follow':true, active:follower.isFollow}"
-        @click.stop="follow(follower.id, index)"
+        @click="follow(follower.id, index)"
         v-if="follower.id != yourId"
       >
         <span v-if="follower.isFollow">following</span>

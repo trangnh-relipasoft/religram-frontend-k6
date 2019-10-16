@@ -63,7 +63,7 @@
             <div class="sign-up">
                 <p>
                     Have a account?
-                    <a @click="goLogin" href>Log in</a>
+                    <a @click="goLogin">Log in</a>
                 </p>
             </div>
         </div>
