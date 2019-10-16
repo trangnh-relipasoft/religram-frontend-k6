@@ -26,7 +26,7 @@
     </div>
     <div class="post-event">
       <p>
-        <span class="post-icon-like">
+        <span :class="{'post-icon-like': true, active: isLike}" @click="likePost">
           <a title></a>
         </span>
         <span class="post-icon-comment">
@@ -36,10 +36,12 @@
           <a title></a>
         </span>
       </p>
-      <p>{{post.likes.length}} likes</p>
+      <p v-if="likeCount>1">{{likeCount}} likes</p>
+      <p v-else>{{likeCount}} like</p>
     </div>
     <div class="post-title">
-      <p>{{post.content}}</p>
+      <!-- <p>{{post.content}}</p> -->
+      <readMore :text="post.content"></readMore>
     </div>
     <p
       class="post-view-all"
@@ -65,10 +67,12 @@
 <script>
 import Comment from "@/components/Home/Comment";
 import postApi from "@/axios/axios-post";
+import ReadMore from "@/components/Expand/ReadMore";
 
 export default {
   components: {
-    Comment
+    Comment,
+    ReadMore
   },
   props: {
     post: Object
@@ -76,10 +80,13 @@ export default {
   data() {
     return {
       cmShow: [],
-      commentMessage: ""
+      commentMessage: "",
+      isLike: false,
+      likeCount: 0
     };
   },
   created() {
+    this.likeCount = this.post.likes.length;
     if (this.post.comments.length <= 3)
       this.cmShow = this.cmShow.concat(this.post.comments);
     else {
@@ -88,6 +95,13 @@ export default {
       this.cmShow = this.cmShow.concat(
         this.post.comments[this.post.comments.length - 1]
       );
+    }
+    let id = localStorage.getItem("id");
+    for (let i = 0; i < this.post.likes.length; i++) {
+      if (this.post.likes[i].user.id == id) {
+        this.isLike = true;
+        break;
+      }
     }
   },
 
@@ -108,6 +122,23 @@ export default {
             content: this.commentMessage.trim()
           });
           this.commentMessage = "";
+        });
+    },
+
+    likePost() {
+      postApi
+        .post(`${this.post.id}/like`)
+        .then(res => {
+          if (this.isLike) {
+            this.isLike = false;
+            this.likeCount--;
+          } else {
+            this.isLike = true;
+            this.likeCount++;
+          }
+        })
+        .catch(err => {
+          if (err) console.log(err.response);
         });
     }
   }
@@ -136,5 +167,9 @@ form img {
   width: 25px;
   cursor: pointer;
   color: beige;
+}
+.post-title {
+  width: 95%;
+  word-wrap: break-word;
 }
 </style>

@@ -12,14 +12,18 @@
             @click="$router.push({name: 'otherprofile', query:{id : comment.user.id}})"
           >{{comment.user.username}}</a>
         </p>
-        <p style="white-space: pre-line;">{{comment.content}}</p>
+        <readMore :text="comment.content"></readMore>
       </div>
     </div>
   </div>
 </template>
 
 <script>
+import ReadMore from "@/components/Expand/ReadMore";
 export default {
+  components: {
+    ReadMore
+  },
   props: {
     comment: Object
   }
