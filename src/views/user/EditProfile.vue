@@ -2,7 +2,7 @@
     <div class="wrap">
         <div class="header">
             <div class="logo">
-                <a href="#" title="">Religram</a>
+                <a href title="">Religram</a>
                 <p class="slogan">Heaven in your hands</p>
             </div>
         </div>
@@ -11,13 +11,14 @@
                 <div class="profile-header">
                     <div class="post-user">
                         <div class="post-avatar post-avatar-small">
-                            <a href="#" title=""><img :src="avatar" alt=""/></a>
+                            <a href title=""><img :src="avatar" alt=""/></a>
                         </div>
                         <div class="post-userName">
-                            <p><a @click="usernameOnClicked" href="#" title="">{{constusername}}</a></p>
-                            <p><a @click="handleChangeAvatarClicked" class="btn-change-proflie btn" href="#" title="">
-                                Change profile photo</a>
-                                <a @click="handleChangePasswordClicked" class="btn-change-pw btn" href="#" title="">
+                            <p><a @click="usernameOnClicked" href title="">{{constusername}}</a></p>
+                            <p>
+                                <a @click="handleChangeAvatarClicked" class="btn-change-proflie btn" title="">
+                                    Change profile photo </a>
+                                <a @click="handleChangePasswordClicked" class="btn-change-pw btn" href title="">
                                     Change password</a></p>
                         </div>
                     </div>
@@ -63,13 +64,13 @@
         </div>
         <div class="footer">
             <div class="post-event">
-                <span class="icon-home"><a href="#" title=""><img alt="" src="images/footer-icon-home.png"/></a></span>
-                <span class="icon-search"><a href="#" title=""><img alt=""
-                                                                    src="images/footer-icon-search.png"/></a></span>
-                <span class="icon-plus"><a href="#" title=""><img alt="" src="images/footer-icon-plus.png"/></a></span>
-                <span class="post-icon-like"><a href="#" title=""></a></span>
-                <span class="icon-my-page"><a href="#" title=""><img alt=""
-                                                                     src="images/footer-icon-my-page.png"/></a></span>
+                <span class="icon-home"><a href title=""><img alt="" src="images/footer-icon-home.png"/></a></span>
+                <span class="icon-search"><a href title=""><img alt=""
+                                                                src="images/footer-icon-search.png"/></a></span>
+                <span class="icon-plus"><a href title=""><img alt="" src="images/footer-icon-plus.png"/></a></span>
+                <span class="post-icon-like"><a href title=""></a></span>
+                <span class="icon-my-page"><a href title=""><img alt=""
+                                                                 src="images/footer-icon-my-page.png"/></a></span>
             </div>
         </div>
         <div class="message message-success" v-if="isSuccess">
@@ -82,9 +83,13 @@
 
     import {email, fullname, username} from "@/validate/validate";
     import axios_user from "@/axios/axios-user";
+    import ImageModal from "@/components/ImageModal";
 
     export default {
         name: "EditUser",
+        components: {
+            ImageModal
+        },
         data() {
             return {
                 constusername: localStorage.getItem('username'),
@@ -93,6 +98,7 @@
                 email: localStorage.getItem('email'),
                 avatar: localStorage.getItem('avatar'),
                 isSuccess: false,
+                showModal: false
             }
         },
         validations: {
@@ -121,7 +127,12 @@
                 this.$v.email.$touch();
             },
             handleChangeAvatarClicked() {
-                this.$router.push({name: 'changeprofilephoto'})
+                this.$modal.show(ImageModal, {
+                    mode: 'avatar'
+                }, {
+                    draggable: true,
+                    height: 'auto'
+                })
             },
             handleChangePasswordClicked() {
                 this.$router.push({name: 'changepassword'})

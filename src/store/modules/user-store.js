@@ -12,9 +12,10 @@ const mutations = {
         state.fullname = userData.fullname;
         state.email = userData.email;
         state.username = userData.username;
-        localStorage.setItem('fullname', userData.fullname);
-        localStorage.setItem('email', userData.email);
-        localStorage.setItem('username', userData.username)
+    },
+    updateAvatar(state, userData) {
+        state.avatar = userData.avatar;
+        localStorage.setItem('avatar', userData.avatar);
     },
 };
 const actions = {};
