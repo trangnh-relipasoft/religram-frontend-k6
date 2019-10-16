@@ -69,6 +69,8 @@ export default {
   },
   created() {
     this.id = this.$route.query.id;
+    if (this.id == localStorage.getItem("id"))
+      this.$router.push({ name: "profile" });
     this.getData();
     this.getFollowers();
     this.getFollowings();
@@ -76,7 +78,7 @@ export default {
 
   data() {
     return {
-      id: Number,
+      id: String,
       userData: {},
       isFollow: Boolean,
       isPost: true,

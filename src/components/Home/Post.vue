@@ -47,15 +47,23 @@
     <div class="post-comment" v-for="(comment,index) in cmShow" :key="index">
       <comment :comment="comment"></comment>
     </div>
-    <form>
-      <input type="text" placeholder="Add comment" class="input-text" />
-      <img src="../../../public/images/send-icon.png" alt />
+    <form @submit.prevent="postComment">
+      <textarea-autosize
+        id="text"
+        placeholder="Add comment..."
+        v-model="commentMessage"
+        :min-height="30"
+        :max-height="350"
+      />
+      <img src="../../../public/images/send-icon.png" @click="postComment" />
     </form>
   </div>
 </template>
 
 <script>
 import Comment from "@/components/Home/Comment";
+import postApi from "@/axios/axios-post";
+
 export default {
   components: {
     Comment
@@ -65,7 +73,8 @@ export default {
   },
   data() {
     return {
-      cmShow: []
+      cmShow: [],
+      commentMessage: ""
     };
   },
   created() {
@@ -78,6 +87,27 @@ export default {
         this.post.comments[this.post.comments.length - 1]
       );
     }
+  },
+
+  methods: {
+    postComment() {
+      postApi
+        .post(`${this.post.id}/comment`, {
+          userId: window.localStorage.getItem("id"),
+          comment: this.commentMessage,
+          hashtags: []
+        })
+        .then(res => {
+          this.cmShow = this.cmShow.concat({
+            user: {
+              avatar: window.localStorage.getItem("avatar"),
+              username: window.localStorage.getItem("username")
+            },
+            content: this.commentMessage
+          });
+          this.commentMessage = "";
+        });
+    }
   }
 };
 </script>
@@ -88,15 +118,19 @@ form {
   position: relative;
   width: 100%;
 }
-form input {
+form #text {
   padding-right: 4.6em;
+  max-height: 160px;
+  min-height: 30px;
+  resize: horizontal;
   width: 96%;
+  overflow: auto !important;
 }
 form img {
   background-color: Transparent;
   position: absolute;
   top: 3.5px;
-  right: 20px;
+  right: 30px;
   width: 25px;
   cursor: pointer;
   color: beige;

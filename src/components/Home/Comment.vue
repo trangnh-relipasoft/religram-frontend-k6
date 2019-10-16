@@ -2,15 +2,17 @@
   <div class="post-comment__item">
     <div class="post-user">
       <div class="post-avatar">
-        <a href="#" title>
+        <a @click="$router.push({name: 'otherprofile', query:{id : comment.user.id}})">
           <img :src="comment.user.avatar" alt />
         </a>
       </div>
       <div class="post-userName">
         <p>
-          <a href="#" title>{{comment.user.username}}</a>
+          <a
+            @click="$router.push({name: 'otherprofile', query:{id : comment.user.id}})"
+          >{{comment.user.username}}</a>
         </p>
-        <p>{{comment.content}}</p>
+        <p style="white-space: pre-line;">{{comment.content}}</p>
       </div>
     </div>
   </div>
@@ -28,5 +30,8 @@ export default {
 .post-userName {
   width: 90%;
   word-wrap: break-word;
+}
+a {
+  cursor: pointer;
 }
 </style>
