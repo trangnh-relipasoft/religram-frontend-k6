@@ -2,15 +2,13 @@
   <div class="post-item">
     <div class="post-user">
       <div class="post-avatar">
-        <a @click="$router.push({name: 'otherprofile', query:{id : post.user.id}})">
+        <a @click="goToUser">
           <img :src="post.user.avatar" alt />
         </a>
       </div>
       <div class="post-userName">
         <p>
-          <a
-            @click="$router.push({name: 'otherprofile', query:{id : post.user.id}})"
-          >{{post.user.username}}</a>
+          <a @click="goToUser">{{post.user.username}}</a>
         </p>
         <p>
           <span class="post-date">
@@ -42,6 +40,7 @@
     <div class="post-title">
       <!-- <p>{{post.content}}</p> -->
       <readMore :text="post.content"></readMore>
+      <br />
     </div>
     <p
       class="post-view-all"
@@ -140,6 +139,17 @@ export default {
         .catch(err => {
           if (err) console.log(err.response);
         });
+    },
+
+    goToUser() {
+      if (this.post.user.id == localStorage.getItem("id")) {
+        this.$router.push("profile");
+      } else {
+        this.$router.push({
+          name: "otherprofile",
+          query: { id: this.post.user.id }
+        });
+      }
     }
   }
 };

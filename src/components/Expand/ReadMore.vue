@@ -54,6 +54,7 @@ export default {
 
 <style scoped>
 p {
+  font-family: "Roboto", sans-serif;
   white-space: pre-line;
   color: rgb(48, 46, 46);
   font-weight: normal;

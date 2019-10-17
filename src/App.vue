@@ -1,5 +1,5 @@
 <template>
-  <div id="app">
+  <div id="app" class="wrap">
     <headers></headers>
     <keep-alive>
       <router-view :key="$route.fullPath" />
