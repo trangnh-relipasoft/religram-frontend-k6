@@ -83,7 +83,7 @@
 
     import {email, fullname, username} from "@/validate/validate";
     import axios_user from "@/axios/axios-user";
-    import ImageModal from "@/components/ImageModal";
+    import ImageModal from "@/components/post/ImageModal";
 
     export default {
         name: "EditUser",

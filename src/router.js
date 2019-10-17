@@ -14,7 +14,7 @@ import VerifyToken from "@/views/auth/VerifyToken";
 import OtherProfile from '@/views/user/OtherProfile';
 import Profile from '@/views/user/Profile';
 
-import ImageModal from "@/components/ImageModal";
+import UploadImage from "@/components/post/UploadImage";
 
 
 Vue.use(Router);
@@ -85,8 +85,8 @@ export default new Router({
             name: 'profile',
             component: Profile
         }, {
-            path: '/test',
-            name: 'test',
-            component: ImageModal
+            path: '/upload',
+            name: 'upload',
+            component: UploadImage
         }]
 })

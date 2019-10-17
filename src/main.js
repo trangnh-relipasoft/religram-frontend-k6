@@ -19,9 +19,7 @@ import '../public/images/footer-icon-my-page.png'
 import '../public/images/footer-icon-plus.png'
 import '../public/images/image-thumb.jpg'
 
-import VModal from 'vue-js-modal'
 
-Vue.use(VModal, {dynamic: true, injectModalsContainer: true});
 Vue.config.productionTip = false;
 Vue.use(Vuelidate);
 new Vue({
