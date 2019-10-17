@@ -11,11 +11,14 @@ import EditProfile from "@/views/user/EditProfile";
 
 import ChangePassword from "@/views/user/ChangePassword";
 import VerifyToken from "@/views/auth/VerifyToken";
-import OtherProfile from "@/views/user/OtherProfile";
-import Profile from "@/views/user/Profile";
 import PostDetail from "@/views/PostDetail/PostDetail";
 import Create from "@/views/Create";
 import Activity from "@/views/Activity";
+
+import OtherProfile from '@/views/user/OtherProfile';
+import Profile from '@/views/user/Profile';
+
+import PostCaption from "@/views/post/PostCaption";
 
 
 Vue.use(Router);
@@ -100,6 +103,11 @@ export default new Router({
             path: "/activity",
             name: "activity",
             component: Activity
+        },
+        {
+            path: '/caption',
+            name: 'caption',
+            component: PostCaption
         }
     ]
 });
