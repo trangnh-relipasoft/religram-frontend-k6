@@ -34,8 +34,8 @@
           <a title></a>
         </span>
       </p>
-      <p v-if="likeCount>1">{{likeCount}} likes</p>
-      <p v-else>{{likeCount}} like</p>
+      <p v-if="likeCount>1" style="font-weight: bold">{{likeCount}} likes</p>
+      <p v-else style="font-weight: bold">{{likeCount}} like</p>
     </div>
     <div class="post-title">
       <!-- <p>{{post.content}}</p> -->
@@ -55,10 +55,12 @@
         id="text"
         placeholder="Add comment..."
         v-model="commentMessage"
-        :min-height="30"
+        :min-height="25"
         :max-height="350"
       />
-      <img src="../../../public/images/send-icon.png" @click="postComment" />
+      <p v-if="commentMessage != ''" style="color: rgb(25, 122, 255);" @click="postComment">post</p>
+      <p v-else style="color: rgb(199, 241, 247); cursor: default">post</p>
+      <!-- <img src="../../../public/images/send-icon.png"  /> -->
     </form>
   </div>
 </template>
@@ -181,5 +183,15 @@ form img {
 .post-title {
   width: 95%;
   word-wrap: break-word;
+}
+form p {
+  position: absolute;
+  top: 4.5px;
+  right: 30px;
+  width: 25px;
+  cursor: pointer;
+}
+#text {
+  font-family: "Roboto", sans-serif;
 }
 </style>

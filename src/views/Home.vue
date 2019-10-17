@@ -58,7 +58,6 @@ export default {
           .then(({ data }) => {
             if (data.list.length) {
               this.posts = this.posts.concat(data.list);
-              console.log(this.posts);
               this.page++;
               $state.loaded();
             } else {

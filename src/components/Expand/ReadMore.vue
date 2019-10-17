@@ -4,7 +4,7 @@
       <div v-if="isExpand == false">
         <p v-if="isTooLong">{{text.slice(0,this.maxLength-1)}}</p>
         <p v-else-if="isTooManyLine">{{textIfTooManyLine}}</p>
-        <p id="readmore" @click.stop="isExpand = !isExpand">... read more</p>
+        <p id="readmore" @click.stop="isExpand = !isExpand">... more</p>
       </div>
       <div v-else>
         <p>{{text}}</p>
