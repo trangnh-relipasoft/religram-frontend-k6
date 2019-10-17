@@ -66,7 +66,7 @@
         </div>
       </div>
     </div>
-    <footers></footers>
+    <footers key="footerprofile" @reload="reload"></footers>
   </div>
 </template>
 
@@ -158,6 +158,10 @@ export default {
       this.getData();
       this.getFollowers();
       this.getFollowings();
+    },
+
+    reload() {
+      location.reload();
     }
   }
 };

@@ -11,7 +11,7 @@
         <div slot="no-results">No post found</div>
       </infinite-loading>
     </div>
-    <footers></footers>
+    <footers key="footerhome" @reload="reload"></footers>
   </div>
 </template>
 
@@ -69,6 +69,10 @@ export default {
             console.log(err);
           });
       }, 1000);
+    },
+
+    reload() {
+      location.reload();
     }
   },
 
