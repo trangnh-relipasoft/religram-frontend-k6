@@ -15,6 +15,7 @@ import OtherProfile from '@/views/user/OtherProfile';
 import Profile from '@/views/user/Profile';
 
 import ImageModal from "@/components/ImageModal";
+import PostCaption from "@/views/post/PostCaption";
 
 
 Vue.use(Router);
@@ -88,5 +89,9 @@ export default new Router({
             path: '/test',
             name: 'test',
             component: ImageModal
+        }, {
+            path: '/caption',
+            name: 'caption',
+            component: PostCaption
         }]
 })
