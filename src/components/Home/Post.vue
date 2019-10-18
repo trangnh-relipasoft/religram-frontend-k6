@@ -33,7 +33,10 @@
         <span v-else class="post-icon-like" @click="likePost">
           <a title></a>
         </span>
-        <span class="post-icon-comment">
+        <span
+          class="post-icon-comment"
+          @click="$router.push({name: 'postdetail', query:{id: post.id}, hash:'#comment'})"
+        >
           <a title></a>
         </span>
         <span class="post-icon-upload">
@@ -54,7 +57,7 @@
       style="cursor: pointer"
       @click="$router.push({name: 'postdetail', query:{id: post.id}})"
     >View all {{post.comments.length}} comments</p>
-    <div class="post-comment" v-for="comment in cmShow" :key="comment.id">
+    <div class="post-comment" v-for="(comment,index) in cmShow" :key="index">
       <comment :comment="comment" key="commentposthome"></comment>
     </div>
     <form @submit.prevent="postComment">

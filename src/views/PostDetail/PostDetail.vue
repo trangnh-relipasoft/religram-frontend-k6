@@ -35,7 +35,7 @@
               <span :class="{'post-icon-like': true, active: isLike}" @click="likePost">
                 <a></a>
               </span>
-              <span class="post-icon-comment">
+              <span class="post-icon-comment" @click="goToComment">
                 <a title></a>
               </span>
               <span class="post-icon-upload">
@@ -55,7 +55,7 @@
               style="cursor: pointer"
               @click="viewMoreCm"
             >View more {{cmCount - cmShow.length}} comments</p>
-            <div v-for="comment in cmShow" :key="comment.id">
+            <div v-for="comment in cmShow" :key="comment.id" id="comment">
               <comment :comment="comment" key="commentpostdetail"></comment>
             </div>
           </div>
@@ -64,6 +64,7 @@
     </div>
     <form @submit.prevent="postComment">
       <textarea-autosize
+        ref="commentBox"
         id="text"
         placeholder="Add comment..."
         v-model="commentMessage"
@@ -199,6 +200,11 @@ export default {
           query: { id: this.post.user.id }
         });
       }
+    },
+
+    goToComment() {
+      window.scrollTo(0, document.body.scrollHeight);
+      this.$refs.commentBox.$el.focus();
     }
   }
 };
