@@ -2,7 +2,7 @@
   <div id="app" class="wrap">
     <headers></headers>
     <keep-alive>
-      <router-view :key="$route.fullPath" @changeLikeState="changeLikeState" />
+      <router-view :key="$route.fullPath" />
     </keep-alive>
   </div>
 </template>

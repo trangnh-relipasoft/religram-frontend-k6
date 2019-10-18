@@ -1,7 +1,7 @@
 <template>
   <div>
     <div class="box-back box-back-v2">
-      <a href="#" title>
+      <a @click="$router.push({name: 'home'})">
         <i class="fa fa-angle-left" aria-hidden="true"></i>Photo
       </a>
     </div>
@@ -183,6 +183,7 @@ export default {
             this.isLike = true;
             this.likeCount++;
           }
+          localStorage.setItem(this.post.id, this.isLike);
         })
         .catch(err => {
           if (err) console.log(err.response);

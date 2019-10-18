@@ -24,7 +24,13 @@
     </div>
     <div class="post-event">
       <p>
-        <span :class="{'post-icon-like': true, active: isLike}" @click="likePost">
+        <!-- <span :class="{'post-icon-like': true, active: isLike}" @click="likePost">
+          <a title></a>
+        </span>-->
+        <span v-if="isLike" class="post-icon-like active" @click="likePost">
+          <a title></a>
+        </span>
+        <span v-else class="post-icon-like" @click="likePost">
           <a title></a>
         </span>
         <span class="post-icon-comment">
@@ -46,6 +52,7 @@
       class="post-view-all"
       v-if="post.comments.length>3"
       style="cursor: pointer"
+      @click="$router.push({name: 'postdetail', query:{id: post.id}})"
     >View all {{post.comments.length}} comments</p>
     <div class="post-comment" v-for="comment in cmShow" :key="comment.id">
       <comment :comment="comment" key="commentposthome"></comment>
@@ -78,6 +85,21 @@ export default {
   },
   props: {
     post: Object
+  },
+  activated() {
+    let like = localStorage.getItem(this.post.id);
+    console.log(like);
+    if (like != null) {
+      if (this.isLike != like) {
+        if (this.isLike == true) {
+          this.isLike = false;
+          this.likeCount--;
+        } else {
+          this.isLike = true;
+          this.likeCount++;
+        }
+      }
+    }
   },
   data() {
     return {
