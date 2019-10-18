@@ -87,6 +87,7 @@ export default new Router({
         }, {
             path: '/upload',
             name: 'upload',
-            component: UploadImage
+            component: UploadImage,
+            props: true
         }]
 })

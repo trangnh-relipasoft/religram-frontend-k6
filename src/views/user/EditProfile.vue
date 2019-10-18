@@ -62,17 +62,7 @@
                 </div>
             </div>
         </div>
-        <div class="footer">
-            <div class="post-event">
-                <span class="icon-home"><a href title=""><img alt="" src="images/footer-icon-home.png"/></a></span>
-                <span class="icon-search"><a href title=""><img alt=""
-                                                                src="images/footer-icon-search.png"/></a></span>
-                <span class="icon-plus"><a href title=""><img alt="" src="images/footer-icon-plus.png"/></a></span>
-                <span class="post-icon-like"><a href title=""></a></span>
-                <span class="icon-my-page"><a href title=""><img alt=""
-                                                                 src="images/footer-icon-my-page.png"/></a></span>
-            </div>
-        </div>
+        <Footer></Footer>
         <div class="message message-success" v-if="isSuccess">
             <p>Save successfuly!</p>
         </div>
@@ -83,12 +73,12 @@
 
     import {email, fullname, username} from "@/validate/validate";
     import axios_user from "@/axios/axios-user";
-    import ImageModal from "@/components/post/ImageModal";
+    import Footer from "@/components/Footer"
 
     export default {
         name: "EditUser",
         components: {
-            ImageModal
+            Footer
         },
         data() {
             return {
@@ -127,12 +117,7 @@
                 this.$v.email.$touch();
             },
             handleChangeAvatarClicked() {
-                this.$modal.show(ImageModal, {
-                    mode: 'avatar'
-                }, {
-                    draggable: true,
-                    height: 'auto'
-                })
+                this.$router.push({name: 'upload', params: {mode: 'avatar'}})
             },
             handleChangePasswordClicked() {
                 this.$router.push({name: 'changepassword'})

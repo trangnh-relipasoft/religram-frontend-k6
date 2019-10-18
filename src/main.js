@@ -18,11 +18,12 @@ import '../public/images/footer-icon-home.png'
 import '../public/images/footer-icon-my-page.png'
 import '../public/images/footer-icon-plus.png'
 import '../public/images/image-thumb.jpg'
-
+import vuetify from "./plugins/vuetify";
 
 Vue.config.productionTip = false;
 Vue.use(Vuelidate);
 new Vue({
+    vuetify,
     router,
     store,
     render: h => h(App)

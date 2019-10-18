@@ -1,9 +1,9 @@
 <template>
-  <div id="app">
+  <v-app id="app">
     <keep-alive>
       <router-view :key="$route.fullPath" />
     </keep-alive>
-  </div>
+  </v-app>
 </template>
 
 <script>

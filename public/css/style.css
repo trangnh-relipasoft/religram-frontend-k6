@@ -692,11 +692,12 @@ input{
 }
 .photo-img{
     width: 394px;
-    height: 394px;
+    height: 300px;
     border: 1px solid #ddd;
     display: flex;
     align-items: center;
     justify-content: center;
+    margin: 0 auto 0 auto;
 }
 .photo-img img{
     max-height: 100%;
