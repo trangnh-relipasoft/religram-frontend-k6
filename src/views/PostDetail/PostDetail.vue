@@ -32,7 +32,7 @@
           </div>
           <div class="post-event">
             <p>
-              <span :class="{'post-icon-like': true, active: isLike}">
+              <span :class="{'post-icon-like': true, active: isLike}" @click="likePost">
                 <a></a>
               </span>
               <span class="post-icon-comment">
@@ -56,12 +56,29 @@
               @click="viewMoreCm"
             >View more {{cmCount - cmShow.length}} comments</p>
             <div v-for="comment in cmShow" :key="comment.id">
-              <comment :comment="comment"></comment>
+              <comment :comment="comment" key="commentpostdetail"></comment>
             </div>
           </div>
         </div>
       </div>
     </div>
+    <form @submit.prevent="postComment">
+      <textarea-autosize
+        id="text"
+        placeholder="Add comment..."
+        v-model="commentMessage"
+        :min-height="25"
+        :max-height="350"
+      />
+
+      <p
+        v-if="commentMessage.trim() != ''"
+        style="color: rgb(25, 122, 255);"
+        @click="postComment"
+      >post</p>
+      <p v-else style="color: rgb(199, 241, 247); cursor: default">post</p>
+      <!-- <img src="../../../public/images/send-icon.png"  /> -->
+    </form>
     <footers key="footerpostdetail"></footers>
   </div>
 </template>
@@ -88,7 +105,8 @@ export default {
       likeCount: 0,
       cmShow: [],
       cmCount: 0,
-      index: 0
+      index: 0,
+      commentMessage: ""
     };
   },
 
@@ -103,39 +121,122 @@ export default {
             break;
           }
         }
-        this.likeCount = this.post.comments.length;
+        console.log(this.post.comments);
+        this.likeCount = this.post.likes.length;
         this.cmCount = this.post.comments.length;
-        this.index = 0;
+        this.index = this.post.comments.length - 1;
         if (this.post.comments.length < 10)
           this.cmShow = this.cmShow.concat(this.post.comments);
         else {
-          if (this.index < this.post.comments.length) {
-            let des = this.index + 9;
-            if (des > this.post.comments.length)
-              des = this.post.comments.length - 1;
+          if (this.index > 0) {
+            let des = this.index - 9;
+            if (des < 0) des = 0;
 
-            for (let i = this.index; i <= des; i++) {
+            for (let i = this.index; i >= des; i--) {
               this.cmShow.unshift(this.post.comments[i]);
             }
-            this.index = des + 1;
+            this.index = des - 1;
           }
         }
       });
     },
 
     viewMoreCm() {
-      if (this.index < this.post.comments.length) {
-        let des = this.index + 9;
-        if (des >= this.post.comments.length)
-          des = this.post.comments.length - 1;
+      if (this.index > 0) {
+        let des = this.index - 9;
+        if (des < 0) des = 0;
 
-        for (let i = this.index; i <= des; i++) {
+        for (let i = this.index; i >= des; i--) {
           this.cmShow.unshift(this.post.comments[i]);
         }
+        this.index = des - 1;
+      }
+    },
 
-        this.index = des + 1;
+    postComment() {
+      postApi
+        .post(`${this.post.id}/comment`, {
+          userId: window.localStorage.getItem("id"),
+          comment: this.commentMessage.trim(),
+          hashtags: []
+        })
+        .then(res => {
+          this.cmShow = this.cmShow.concat({
+            user: {
+              avatar: window.localStorage.getItem("avatar"),
+              username: window.localStorage.getItem("username")
+            },
+            content: this.commentMessage.trim()
+          });
+          this.commentMessage = "";
+        });
+    },
+
+    likePost() {
+      postApi
+        .post(`${this.post.id}/like`)
+        .then(res => {
+          if (this.isLike) {
+            this.isLike = false;
+            this.likeCount--;
+          } else {
+            this.isLike = true;
+            this.likeCount++;
+          }
+        })
+        .catch(err => {
+          if (err) console.log(err.response);
+        });
+    },
+
+    goToUser() {
+      if (this.post.user.id == localStorage.getItem("id")) {
+        this.$router.push("profile");
+      } else {
+        this.$router.push({
+          name: "otherprofile",
+          query: { id: this.post.user.id }
+        });
       }
     }
   }
 };
 </script>
+<style scoped>
+form {
+  display: inline-block;
+  position: relative;
+  width: 100%;
+}
+form #text {
+  padding-right: 4.6em;
+  max-height: 160px;
+  min-height: 30px;
+  resize: horizontal;
+  width: 96%;
+  overflow: auto !important;
+}
+form img {
+  background-color: Transparent;
+  position: absolute;
+  top: 3.5px;
+  right: 30px;
+  width: 25px;
+  cursor: pointer;
+  color: beige;
+}
+.post-title {
+  width: 95%;
+  word-wrap: break-word;
+}
+form p {
+  position: absolute;
+  top: 4.5px;
+  right: 30px;
+  width: 25px;
+  cursor: pointer;
+}
+#text {
+  font-family: "Roboto", sans-serif;
+}
+</style>

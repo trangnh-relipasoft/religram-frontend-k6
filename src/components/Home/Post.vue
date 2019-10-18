@@ -47,8 +47,8 @@
       v-if="post.comments.length>3"
       style="cursor: pointer"
     >View all {{post.comments.length}} comments</p>
-    <div class="post-comment" v-for="(comment,index) in cmShow" :key="index">
-      <comment :comment="comment"></comment>
+    <div class="post-comment" v-for="comment in cmShow" :key="comment.id">
+      <comment :comment="comment" key="commentposthome"></comment>
     </div>
     <form @submit.prevent="postComment">
       <textarea-autosize
