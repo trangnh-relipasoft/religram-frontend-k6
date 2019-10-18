@@ -18,7 +18,7 @@
       </div>
     </div>
     <div class="post-image">
-      <p class="post-thumb">
+      <p class="post-thumb" @click="$router.push({name: 'postdetail', query:{id: post.id}})">
         <img :src="post.photos[0].photoUri" alt />
       </p>
     </div>
@@ -58,6 +58,7 @@
         :min-height="25"
         :max-height="350"
       />
+
       <p v-if="commentMessage != ''" style="color: rgb(25, 122, 255);" @click="postComment">post</p>
       <p v-else style="color: rgb(199, 241, 247); cursor: default">post</p>
       <!-- <img src="../../../public/images/send-icon.png"  /> -->
