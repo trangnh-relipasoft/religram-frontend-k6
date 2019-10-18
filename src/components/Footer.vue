@@ -1,5 +1,6 @@
 <template>
   <div class="footer">
+    <input v-show="false" type="file" name="myFile" ref="inputt" @change="onFileSelected" />
     <div class="post-event">
       <span class="icon-home">
         <a @click.stop="backToHome" title>
@@ -11,7 +12,7 @@
           <img src="images/footer-icon-search.png" alt />
         </a>
       </span>
-      <span class="icon-plus">
+      <span class="icon-plus" @click="createPost">
         <a title>
           <img src="images/footer-icon-plus.png" alt />
         </a>
@@ -39,7 +40,8 @@ export default {
   data() {
     return {
       srcHome: "images/home.png",
-      srcProfile: "images/footer-icon-my-page.png"
+      srcProfile: "images/footer-icon-my-page.png",
+      image: null
     };
   },
   methods: {
@@ -63,6 +65,25 @@ export default {
       } else {
         this.$router.push({ name: "profile" });
       }
+    },
+
+    createPost() {
+      this.$refs.inputt.click();
+    },
+    onFileSelected(event) {
+      let files = event.target.files;
+      let fileReader = new FileReader();
+      let imageUrl = null;
+      fileReader.addEventListener("load", () => {
+        imageUrl = fileReader.result;
+        let formData = {
+          imageUrl: imageUrl,
+          type: "image"
+        };
+        this.$router.push({ name: "create", query: { pic: formData } });
+      });
+      fileReader.readAsDataURL(files[0]);
+      this.image = files[0];
     }
   }
 };

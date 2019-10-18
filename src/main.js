@@ -4,7 +4,10 @@ import router from "./router";
 import store from "./store/store";
 import Vuelidate from "vuelidate";
 import VueTimeago from "vue-timeago";
-import TextareaAutosize from 'vue-textarea-autosize'
+import TextareaAutosize from "vue-textarea-autosize";
+import Croppa from "vue-croppa";
+
+Vue.use(Croppa);
 
 Vue.config.productionTip = false;
 Vue.use(VueTimeago, {
@@ -12,7 +15,7 @@ Vue.use(VueTimeago, {
   locale: "en" // Default locale
 });
 Vue.use(Vuelidate);
-Vue.use(TextareaAutosize)
+Vue.use(TextareaAutosize);
 new Vue({
   router,
   store,
