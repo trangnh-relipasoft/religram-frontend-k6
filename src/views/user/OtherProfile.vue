@@ -42,11 +42,9 @@
               </a>
             </div>
             <div class="tab-content">
-              <keep-alive>
-                <post v-if="isPost" :id="id"></post>
-                <follower v-if="isFollower" :id="id" :yourId="yourId" :followers="followers"></follower>
-                <follower v-if="isFollowing" :id="id" :yourId="yourId" :followers="followings"></follower>
-              </keep-alive>
+              <post v-if="isPost" :id="id"></post>
+              <follower v-if="isFollower" :id="id" :yourId="yourId" :followers="followers"></follower>
+              <follower v-if="isFollowing" :id="id" :yourId="yourId" :followers="followings"></follower>
             </div>
           </div>
         </div>
@@ -92,6 +90,14 @@ export default {
 
   methods: {
     follow() {
+      if (this.userData.follow == false) {
+        let formData = {
+          type: "follow",
+          targetUser: this.id
+        };
+        console.log("here");
+        this.$store.dispatch("saveNewActivity", formData);
+      }
       user.post(`/follow/${this.id}`).then(res => {
         this.getData();
         this.getFollowers();

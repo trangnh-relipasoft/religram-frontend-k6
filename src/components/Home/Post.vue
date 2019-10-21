@@ -102,6 +102,7 @@ export default {
           this.likeCount++;
         }
       }
+      localStorage.removeItem(this.post.id);
     }
   },
   data() {
@@ -134,6 +135,13 @@ export default {
 
   methods: {
     postComment() {
+      let formData = {
+        type: "comment",
+        targetUser: this.post.user.id,
+        image: this.post.photos[0].photoUri,
+        postId: this.post.id
+      };
+      this.$store.dispatch("saveNewActivity", formData);
       postApi
         .post(`${this.post.id}/comment`, {
           userId: window.localStorage.getItem("id"),
@@ -153,6 +161,15 @@ export default {
     },
 
     likePost() {
+      if (this.isLike == false) {
+        let formData = {
+          type: "like",
+          targetUser: this.post.user.id,
+          image: this.post.photos[0].photoUri,
+          postId: this.post.id
+        };
+        this.$store.dispatch("saveNewActivity", formData);
+      }
       postApi
         .post(`${this.post.id}/like`)
         .then(res => {

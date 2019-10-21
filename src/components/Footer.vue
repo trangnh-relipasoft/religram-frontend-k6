@@ -17,8 +17,11 @@
           <img src="images/footer-icon-plus.png" alt />
         </a>
       </span>
-      <span class="post-icon-like">
-        <a title></a>
+      <span>
+        <a title @click="goToActivity">
+          <img :src="srcActivity" alt />
+          <!-- <p v-if="showDot" id="dot">.</p> -->
+        </a>
       </span>
       <span class="icon-my-page">
         <a @click="goToProfile" title>
@@ -31,17 +34,21 @@
 <script>
 export default {
   created() {
+    if (localStorage.getItem("noti") == true) this.showDot == true;
     if (this.$route.path == "/") {
       this.srcHome = "images/footer-icon-home.png";
     } else if (this.$route.path == "/profile") {
       this.srcProfile = "images/profile-active.png";
+    } else if (this.$route.path == "/activity") {
+      this.srcActivity = "images/btn-like_01.png";
     }
   },
   data() {
     return {
       srcHome: "images/home.png",
       srcProfile: "images/footer-icon-my-page.png",
-      image: null
+      image: null,
+      srcActivity: "images/btn-like_03.png"
     };
   },
   methods: {
@@ -67,6 +74,17 @@ export default {
       }
     },
 
+    goToActivity() {
+      let posY = window.scrollY;
+      if (this.$route.path == "/activity" && posY != 0) {
+        window.scrollTo({ top: 0, behavior: "smooth" });
+      } else if (this.$route.path == "/activity" && posY == 0) {
+        location.reload();
+      } else {
+        this.$router.push({ name: "activity" });
+      }
+    },
+
     createPost() {
       this.$refs.inputt.click();
     },
@@ -88,3 +106,14 @@ export default {
   }
 };
 </script>
+
+<style scoped>
+#dot {
+  color: red;
+  font-size: 25px;
+}
+
+a {
+  text-decoration: transparent;
+}
+</style>

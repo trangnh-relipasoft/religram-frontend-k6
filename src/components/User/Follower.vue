@@ -16,7 +16,7 @@
       <a
         title
         :class="{btn:true, 'btn-follow':true, active:follower.isFollow}"
-        @click="follow(follower.id, index)"
+        @click="follow(follower.id, index, follower.isFollow)"
         v-if="follower.id != yourId"
       >
         <span v-if="follower.isFollow">following</span>
@@ -36,7 +36,15 @@ export default {
   },
 
   methods: {
-    follow(targetId, index) {
+    follow(targetId, index, isFollow) {
+      if (isFollow == false) {
+        let formData = {
+          type: "follow",
+          targetUser: this.id
+        };
+        console.log("here");
+        this.$store.dispatch("saveNewActivity", formData);
+      }
       if (targetId != this.yourId) {
         user.post(`/follow/${targetId}`).then(res => {
           this.followers[index].isFollow = !this.followers[index].isFollow;

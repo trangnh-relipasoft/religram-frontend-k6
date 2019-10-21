@@ -14,6 +14,7 @@ import OtherProfile from "@/views/user/OtherProfile";
 import Profile from "@/views/user/Profile";
 import PostDetail from "@/views/PostDetail/PostDetail";
 import Create from "@/views/Create";
+import Activity from "@/views/Activity";
 
 Vue.use(Router);
 
@@ -92,6 +93,11 @@ export default new Router({
       path: "/create",
       name: "create",
       component: Create
+    },
+    {
+      path: "/activity",
+      name: "activity",
+      component: Activity
     }
   ]
 });
