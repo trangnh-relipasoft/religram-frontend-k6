@@ -1,11 +1,5 @@
 <template>
   <div class="wrap">
-    <div class="header">
-      <div class="logo">
-        <a href title>Religram</a>
-        <p class="slogan">Heaven in your hands</p>
-      </div>
-    </div>
     <div class="content">
       <div class="form form-sign-up-fb">
         <form id="form_sign_up_fb" @submit.prevent="getBase64">
@@ -65,7 +59,7 @@
       <div class="sign-up">
         <p>
           Have a account?
-          <a href @click="$router.push({name: 'login'})" title>Log in</a>
+          <a @click="$router.push({name: 'login'})" title>Log in</a>
         </p>
       </div>
     </div>

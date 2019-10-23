@@ -1,11 +1,5 @@
 <template>
   <div class="wrap">
-    <div class="header">
-      <div class="logo">
-        <a href title>Religram</a>
-        <p class="slogan">Heaven in your hands</p>
-      </div>
-    </div>
     <div class="content">
       <div class="form form-forgot-pw form-forgot-pw-success">
         <p class="center">
@@ -16,7 +10,7 @@
         </div>
       </div>
       <div class="box-back">
-        <a href @click="$router.push({name:'login'})" title>Back to log in</a>
+        <a @click="$router.push({name:'login'})" title>Back to log in</a>
       </div>
     </div>
   </div>

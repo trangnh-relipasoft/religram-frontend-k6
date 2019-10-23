@@ -3,21 +3,20 @@
     <li v-for="(follower,index) in followers" :key="index">
       <div class="post-user">
         <div class="post-avatar">
-          <a title href @click="getUser(follower.id)">
+          <a @click="getUser(follower.id)">
             <img :src="follower.avatar" alt />
           </a>
         </div>
         <div class="post-userName">
           <p>
-            <a href @click="getUser(follower.id)" title>{{follower.username}}</a>
+            <a @click="getUser(follower.id)" title>{{follower.username}}</a>
           </p>
         </div>
       </div>
       <a
-        href
         title
         :class="{btn:true, 'btn-follow':true, active:follower.isFollow}"
-        @click.stop="follow(follower.id, index)"
+        @click="follow(follower.id, index, follower.isFollow)"
         v-if="follower.id != yourId"
       >
         <span v-if="follower.isFollow">following</span>
@@ -37,7 +36,15 @@ export default {
   },
 
   methods: {
-    follow(targetId, index) {
+    follow(targetId, index, isFollow) {
+      if (isFollow == false) {
+        let formData = {
+          type: "follow",
+          targetUser: this.id
+        };
+        console.log("here");
+        this.$store.dispatch("saveNewActivity", formData);
+      }
       if (targetId != this.yourId) {
         user.post(`/follow/${targetId}`).then(res => {
           this.followers[index].isFollow = !this.followers[index].isFollow;

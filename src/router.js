@@ -1,7 +1,7 @@
-import Vue from 'vue'
-import Router from 'vue-router'
-import Home from './views/Home.vue'
-import Login from './views/auth/Login';
+import Vue from "vue";
+import Router from "vue-router";
+import Home from "./views/Home.vue";
+import Login from "./views/auth/Login";
 import Signup from "@/views/auth/Signup";
 import SignupFacebook from "@/views/auth/SignupFacebook";
 import ForgotPassword from "@/views/auth/ForgotPassword";
@@ -11,26 +11,27 @@ import EditProfile from "@/views/user/EditProfile";
 
 import ChangePassword from "@/views/user/ChangePassword";
 import VerifyToken from "@/views/auth/VerifyToken";
-import OtherProfile from '@/views/user/OtherProfile';
-import Profile from '@/views/user/Profile';
-
-import ImageModal from "@/components/ImageModal";
+import OtherProfile from "@/views/user/OtherProfile";
+import Profile from "@/views/user/Profile";
+import PostDetail from "@/views/PostDetail/PostDetail";
+import Create from "@/views/Create";
+import Activity from "@/views/Activity";
 
 
 Vue.use(Router);
 
 export default new Router({
-    mode: 'history',
+    mode: "history",
     base: process.env.BASE_URL,
     routes: [
         {
-            path: '/',
-            name: 'home',
+            path: "/",
+            name: "home",
             component: Home
         },
         {
             path: "/login",
-            name: 'login',
+            name: "login",
             component: Login
         },
         {
@@ -45,15 +46,9 @@ export default new Router({
             component: SignupFacebook
         },
         {
-            path: '/forgotpassword',
-            name: 'forgotpassword',
+            path: "/forgotpassword",
+            name: "forgotpassword",
             component: ForgotPassword
-        },
-
-        {
-            path: '/forgotpasswordsuccess',
-            name: 'forgotpasswordsuccess',
-            component: ForgotPasswordSuccess
         },
         {
             path: '/resetpassword',
@@ -84,9 +79,27 @@ export default new Router({
             path: '/profile',
             name: 'profile',
             component: Profile
-        }, {
-            path: '/test',
-            name: 'test',
-            component: ImageModal
-        }]
-})
+        },
+        {
+            path: "/forgotpasswordsuccess",
+            name: "forgotpasswordsuccess",
+            component: ForgotPasswordSuccess
+        },
+        {
+            path: "/post",
+            name: "postdetail",
+            component: PostDetail
+        },
+        {
+            path: "/create",
+            name: "create",
+            component: Create,
+            props: true
+        },
+        {
+            path: "/activity",
+            name: "activity",
+            component: Activity
+        }
+    ]
+});

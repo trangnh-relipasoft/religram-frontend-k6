@@ -1,26 +1,23 @@
 <template>
   <div class="wrap">
-    <div class="header">
-      <div class="logo">
-        <a href @click="$router.push({name: 'home'})" title>Religram</a>
-        <p class="slogan">Heaven in your hands</p>
-      </div>
-    </div>
     <div class="content">
       <div class="profile">
         <div class="profile-header">
           <div class="post-user">
             <div class="post-avatar">
-              <a href title>
+              <a title>
                 <img :src="userData.avatar" alt />
               </a>
             </div>
             <div class="post-userName">
               <p>
-                <a href title>{{userData.username}}</a>
+                <a title>{{userData.username}}</a>
               </p>
               <p>
-                <a class="edit-proflie btn" @click="$router.push({name: 'editprofile'})">Edit profile</a>
+                <a
+                  class="edit-proflie btn"
+                  @click="$router.push({name: 'editprofile'})"
+                >Edit profile</a>
               </p>
             </div>
           </div>
@@ -47,29 +44,27 @@
               </a>
             </div>
             <div class="tab-content">
-              <keep-alive>
-                <post v-if="isPost" :id="id"></post>
-                <follower
-                  v-if="isFollower"
-                  :id="id"
-                  :yourId="yourId"
-                  :followers="followers"
-                  @updateFollow="update"
-                ></follower>
-                <follower
-                  v-if="isFollowing"
-                  :id="id"
-                  :yourId="yourId"
-                  :followers="followings"
-                  @updateFollow="update"
-                ></follower>
-              </keep-alive>
+              <post v-if="isPost" :id="id"></post>
+              <follower
+                v-if="isFollower"
+                :id="id"
+                :yourId="yourId"
+                :followers="followers"
+                @updateFollow="update"
+              ></follower>
+              <follower
+                v-if="isFollowing"
+                :id="id"
+                :yourId="yourId"
+                :followers="followings"
+                @updateFollow="update"
+              ></follower>
             </div>
           </div>
         </div>
       </div>
     </div>
-    <footers></footers>
+    <footers key="footerprofile" @reload="reload"></footers>
   </div>
 </template>
 
@@ -93,7 +88,7 @@ export default {
 
   data() {
     return {
-      id: Number,
+      id: "",
       userData: {},
       isFollow: Boolean,
       isPost: true,
@@ -161,6 +156,10 @@ export default {
       this.getData();
       this.getFollowers();
       this.getFollowings();
+    },
+
+    reload() {
+      location.reload();
     }
   }
 };

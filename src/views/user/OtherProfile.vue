@@ -1,23 +1,17 @@
 <template>
   <div class="wrap">
-    <div class="header">
-      <div class="logo">
-        <a href @click="$router.push({name: 'home'})" title>Religram</a>
-        <p class="slogan">Heaven in your hands</p>
-      </div>
-    </div>
     <div class="content">
       <div class="profile">
         <div class="profile-header">
           <div class="post-user">
             <div class="post-avatar">
-              <a href title>
+              <a title>
                 <img :src="userData.avatar" alt />
               </a>
             </div>
             <div class="post-userName">
               <p>
-                <a href title>{{userData.username}}</a>
+                <a title>{{userData.username}}</a>
               </p>
               <p>
                 <a v-show="userData.follow" @click="follow" class="btn-follow btn active">Following</a>
@@ -48,11 +42,9 @@
               </a>
             </div>
             <div class="tab-content">
-              <keep-alive>
-                <post v-if="isPost" :id="id"></post>
-                <follower v-if="isFollower" :id="id" :yourId="yourId" :followers="followers"></follower>
-                <follower v-if="isFollowing" :id="id" :yourId="yourId" :followers="followings"></follower>
-              </keep-alive>
+              <post v-if="isPost" :id="id"></post>
+              <follower v-if="isFollower" :id="id" :yourId="yourId" :followers="followers"></follower>
+              <follower v-if="isFollowing" :id="id" :yourId="yourId" :followers="followings"></follower>
             </div>
           </div>
         </div>
@@ -75,6 +67,8 @@ export default {
   },
   created() {
     this.id = this.$route.query.id;
+    if (this.id == localStorage.getItem("id"))
+      this.$router.push({ name: "profile" });
     this.getData();
     this.getFollowers();
     this.getFollowings();
@@ -82,7 +76,7 @@ export default {
 
   data() {
     return {
-      id: Number,
+      id: "",
       userData: {},
       isFollow: Boolean,
       isPost: true,
@@ -96,6 +90,14 @@ export default {
 
   methods: {
     follow() {
+      if (this.userData.follow == false) {
+        let formData = {
+          type: "follow",
+          targetUser: this.id
+        };
+        console.log("here");
+        this.$store.dispatch("saveNewActivity", formData);
+      }
       user.post(`/follow/${this.id}`).then(res => {
         this.getData();
         this.getFollowers();

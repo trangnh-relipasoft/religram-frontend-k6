@@ -1,17 +1,11 @@
 <template>
     <div class="wrap">
-        <div class="header">
-            <div class="logo">
-                <a href title="">Religram</a>
-                <p class="slogan">Heaven in your hands</p>
-            </div>
-        </div>
         <div class="content">
             <div class="profile">
                 <div class="profile-header">
                     <div class="post-user">
                         <div class="post-avatar post-avatar-small">
-                            <a href title=""><img :src="avatar" alt=""/></a>
+                            <a  title=""><img :src="avatar" alt=""/></a>
                         </div>
                         <div class="post-userName">
                             <p><a @click="usernameOnClicked" href title="">{{constusername}}</a></p>
@@ -62,20 +56,11 @@
                 </div>
             </div>
         </div>
-        <div class="footer">
-            <div class="post-event">
-                <span class="icon-home"><a href title=""><img alt="" src="images/footer-icon-home.png"/></a></span>
-                <span class="icon-search"><a href title=""><img alt=""
-                                                                src="images/footer-icon-search.png"/></a></span>
-                <span class="icon-plus"><a href title=""><img alt="" src="images/footer-icon-plus.png"/></a></span>
-                <span class="post-icon-like"><a href title=""></a></span>
-                <span class="icon-my-page"><a href title=""><img alt=""
-                                                                 src="images/footer-icon-my-page.png"/></a></span>
-            </div>
-        </div>
+        <Footer></Footer>
         <div class="message message-success" v-if="isSuccess">
             <p>Save successfuly!</p>
         </div>
+        <input v-show="false" type="file" name="myFile" ref="inputt" @change="onFileSelected" />
     </div>
 </template>
 
@@ -83,12 +68,12 @@
 
     import {email, fullname, username} from "@/validate/validate";
     import axios_user from "@/axios/axios-user";
-    import ImageModal from "@/components/ImageModal";
+    import Footer from "@/components/Footer";
 
     export default {
         name: "EditUser",
         components: {
-            ImageModal
+            Footer
         },
         data() {
             return {
@@ -98,7 +83,8 @@
                 email: localStorage.getItem('email'),
                 avatar: localStorage.getItem('avatar'),
                 isSuccess: false,
-                showModal: false
+                showModal: false,
+                image: null
             }
         },
         validations: {
@@ -127,12 +113,22 @@
                 this.$v.email.$touch();
             },
             handleChangeAvatarClicked() {
-                this.$modal.show(ImageModal, {
-                    mode: 'avatar'
-                }, {
-                    draggable: true,
-                    height: 'auto'
-                })
+                this.$refs.inputt.click();
+            },
+            onFileSelected(event) {
+                let files = event.target.files;
+                let fileReader = new FileReader();
+                let imageUrl = null;
+                fileReader.addEventListener("load", () => {
+                    imageUrl = fileReader.result;
+                    let formData = {
+                        imageUrl: imageUrl,
+                        type: "image"
+                    };
+                    this.$router.push({ name: "create", query: { pic: formData }, params: { mode: 'avatar'}});
+                });
+                fileReader.readAsDataURL(files[0]);
+                this.image = files[0];
             },
             handleChangePasswordClicked() {
                 this.$router.push({name: 'changepassword'})

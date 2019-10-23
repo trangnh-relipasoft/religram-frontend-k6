@@ -1,7 +1,7 @@
 <template>
   <ul class="ul-list-post">
     <li v-for="(post,index) in posts" :key="index">
-      <a href title>
+      <a title>
         <img :src="post.photos[0].photoUri" alt />
       </a>
     </li>

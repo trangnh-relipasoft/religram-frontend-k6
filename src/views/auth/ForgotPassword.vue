@@ -1,11 +1,5 @@
 <template>
     <div class="wrap">
-        <div class="header">
-            <div class="logo">
-                <a href title>Religram</a>
-                <p class="slogan">Heaven in your hands</p>
-            </div>
-        </div>
         <div class="content">
             <div class="form form-forgot-pw">
                 <p class="center">
@@ -33,11 +27,11 @@
             </div>
             <div class="sign-up">
                 <p>
-                    <a @click="$router.push({name: 'signup'})" href title>Creat New Account</a>
+                    <a @click="$router.push({name: 'signup'})" title>Creat New Account</a>
                 </p>
             </div>
             <div class="box-back">
-                <a @click="$router.push({name: 'login'})" href title>Back to log in</a>
+                <a @click="$router.push({name: 'login'})" title>Back to log in</a>
             </div>
         </div>
         <div class="message message-error" v-show="error != ''">
