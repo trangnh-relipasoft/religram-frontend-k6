@@ -98,7 +98,7 @@ export default {
           imageUrl: imageUrl,
           type: "image"
         };
-        this.$router.push({ name: "create", query: { pic: formData } });
+        this.$router.push({ name: "create", query: { pic: formData }, params: { mode: 'post'}});
       });
       fileReader.readAsDataURL(files[0]);
       this.image = files[0];

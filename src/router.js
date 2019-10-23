@@ -92,7 +92,8 @@ export default new Router({
     {
       path: "/create",
       name: "create",
-      component: Create
+      component: Create,
+      props: true
     },
     {
       path: "/activity",
