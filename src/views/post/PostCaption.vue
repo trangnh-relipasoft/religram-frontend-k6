@@ -1,11 +1,5 @@
 <template>
     <div class="wrap">
-        <div class="header">
-            <div class="logo">
-                <a href title="">Religram</a>
-                <p class="slogan">Heaven in your hands</p>
-            </div>
-        </div>
         <div class="box-back box-back-v3">
             <a @click="handleCloseOnClicked" href title=""><i aria-hidden="true" class="fa fa-times"></i></a>
             <span>New post</span>
@@ -13,23 +7,19 @@
         </div>
         <div class="content">
             <div class="photo-post">
-                <div class="post-user">
-                    <div class="post-avatar">
-                        <a href title=""><img :src="avatar" alt=""/></a>
-                        <br><br>
-                        <highlightable-input
-                                :highlight="highlight"
-                                :highlight-enabled="highlightEnabled"
-                                align="left"
-                                class="captionarea"
-                                data-placeholder="Write a caption"
-                                v-model="caption"
-                        />
-                    </div>
-                    <div class="post-imgThumb">
-                        <img :src="imgSrc" alt=""/>
-                    </div>
+                <div style="width:413px;height: 303px; position: relative">
+                    <img :src="imgSrc">
                 </div>
+            </div>
+            <br>
+            <div style="height: 200px">
+                <highlightable-input
+                        :highlight="highlight"
+                        :highlight-enabled="highlightEnabled"
+                        align="left"
+                        class="captionarea"
+                        data-placeholder="Write a caption"
+                        v-model="caption"/>
             </div>
         </div>
         <Footer></Footer>
@@ -47,20 +37,24 @@
         },
         data() {
             return {
-                imgSrc: null,
+                imgSrc: localStorage.getItem("avatar_base64_str"),
                 caption: '',
                 username: localStorage.getItem('username'),
                 fullname: localStorage.getItem('fullname'),
                 email: localStorage.getItem('email'),
                 avatar: localStorage.getItem('avatar'),
                 highlight: [
-                    {text: /(#[a-z\d-]+)/ig, style: "background-color:#f37373"},
+                    {text: /(#[a-z\d-]+)/ig, style: "background-color:#82ccdd"},
                     // {start: 2, end: 5, style: "background-color:#f330ff"}
                 ],
                 highlightEnabled: true,
             }
         },
         methods: {
+            checkCaption(value){
+                this.caption = value
+                console.log(value)
+            },
             handleShareOnClicked() {
                 console.log(this.caption)
             },
@@ -75,7 +69,7 @@
         computed: {
             nodes() {
                 return this.caption.split(/#([\w]+)/)
-            }
+            },
         },
         watch: {
             query() {
@@ -89,8 +83,8 @@
 <style scoped>
     .captionarea {
         height: 200px;
-        width: 400px;
-        background-color: #e2e1ee
+        width:413px;
+        background-color: #F5F2F1
     }
 
     [data-placeholder]:empty:before {

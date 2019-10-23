@@ -99,7 +99,7 @@
                 img.src = this.dataUrl;
                 await this.draw(img, ctx, canvas);
             },
-            draw(img, ctx, canvas){
+            draw(img, ctx, canvas) {
                 return new Promise((resolve, reject) => {
                     ctx.drawImage(img, 0, 0, canvas.width, canvas.height);
                     const anchor = document.createElement('a');
@@ -107,13 +107,20 @@
                     localStorage.setItem('avatar_base64_str', anchor.href)
                 })
             },
-            submit(){
+            submit() {
                 var tmp = localStorage.getItem('avatar_base64_str');
                 console.log("tmp", tmp);
                 let userData = {
                     avatar: tmp.slice(21)
                 };
-                localStorage.removeItem("avatar_base64_str");
+                if (this.mode === 'avatar') {
+                    this.changeAvatar();
+                    localStorage.removeItem("avatar_base64_str");
+                } else if (this.mode === 'post') {
+                    this.$router.push({name: 'caption'})
+                }
+            },
+            changeAvatar() {
                 axios_user.post('', userData, {
                     headers: {
                         Authorization: 'Bearer ' + window.localStorage.getItem('token')
@@ -126,7 +133,8 @@
                         this.$store.commit('updateAvatar', userData);
                         if (this.mode === 'avatar') {
                             this.$router.push({name: 'profile'})
-                            this.$router.push({name: 'profile'})
+                        } else if (this.mode === 'post') {
+                            this.$router.push({name: 'home'})
                         }
                     }
                 }).catch(reason => {
