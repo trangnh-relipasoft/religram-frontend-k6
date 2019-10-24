@@ -55,7 +55,7 @@
         mounted() {
             this.mySiema = new Siema({
                 perPage: 4
-            })
+            });
         },
         created() {
             this.imageUrl = this.$route.query.pic.imageUrl;
@@ -63,9 +63,11 @@
                 console.log("");
             }, 500);
         },
-        props: [
-            'mode'
-        ],
+        props: {
+            'mode': {
+                default: 'post',
+            }
+        },
         data() {
             return {
                 imageUrl: null,
@@ -114,13 +116,13 @@
                     avatar: tmp.slice(21)
                 };
                 if (this.mode === 'avatar') {
-                    this.changeAvatar();
+                    this.changeAvatar(userData);
                     localStorage.removeItem("avatar_base64_str");
                 } else if (this.mode === 'post') {
                     this.$router.push({name: 'caption'})
                 }
             },
-            changeAvatar() {
+            changeAvatar(userData) {
                 axios_user.post('', userData, {
                     headers: {
                         Authorization: 'Bearer ' + window.localStorage.getItem('token')
