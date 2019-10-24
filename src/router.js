@@ -19,6 +19,7 @@ import OtherProfile from '@/views/user/OtherProfile';
 import Profile from '@/views/user/Profile';
 
 import PostCaption from "@/views/post/PostCaption";
+import Search from "./views/search/Search";
 
 
 Vue.use(Router);
@@ -108,6 +109,10 @@ export default new Router({
             path: '/caption',
             name: 'caption',
             component: PostCaption
+        }, {
+            path: '/search',
+            name: 'search',
+            component: Search
         }
     ]
 });

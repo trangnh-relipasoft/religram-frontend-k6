@@ -9,7 +9,7 @@
       </span>
       <span class="icon-search">
         <a title>
-          <img src="images/footer-icon-search.png" alt />
+          <img src="images/footer-icon-search.png" @click="goToSearch" alt />
         </a>
       </span>
       <span class="icon-plus" @click="createPost">
@@ -52,6 +52,9 @@ export default {
     };
   },
   methods: {
+    goToSearch(){
+       this.$router.push({name: 'search'})
+    },
     backToHome() {
       let posY = window.scrollY;
       if (this.$route.path == "/" && posY != 0) {

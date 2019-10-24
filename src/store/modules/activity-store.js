@@ -15,7 +15,7 @@ const actions = {
   saveNewActivity({ commit }, formData) {
     console.log(formData);
     if (formData.type == "follow") {
-      db.collection(formData.targetUser).add({
+      db.collection(`${formData.targetUser}`).add({
         userId: window.localStorage.getItem("id"),
         type: "follow",
         user: window.localStorage.getItem("username"),
