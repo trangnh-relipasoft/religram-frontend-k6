@@ -28,6 +28,7 @@
 
 <script>
 import user from "../../axios/axios-user";
+import {eventBus} from "../../main";
 export default {
   props: {
     id: String,
@@ -48,7 +49,8 @@ export default {
       if (targetId != this.yourId) {
         user.post(`/follow/${targetId}`).then(res => {
           this.followers[index].isFollow = !this.followers[index].isFollow;
-          this.$emit("updateFollow");
+          this.$emit("updateFollow")
+          eventBus.$emit("updateFollow");
         });
       }
     },

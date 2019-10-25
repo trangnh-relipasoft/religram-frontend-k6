@@ -63,6 +63,7 @@ Vue.use(VueTimeago, {
     name: "Timeago", // Component name, `Timeago` by default
     locale: "en" // Default locale
 });
+export const eventBus = new Vue()
 Vue.use(Vuelidate);
 Vue.use(TextareaAutosize);
 new Vue({

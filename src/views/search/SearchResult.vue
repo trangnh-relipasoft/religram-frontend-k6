@@ -1,19 +1,20 @@
 <template>
     <ul class="ul-list-followers">
-        <li :key="index" v-for="(follower,index) in users">
+        <li :key="index" v-for="(follower,index) in users" v-if="follower.id!=yourId">
             <div class="post-user">
-                <div class="post-avatar" style="margin-left: 10%" v-if="follower.id!=yourId">
+                <div class="post-avatar" style="margin-left: 10%">
                     <a @click="getUser(follower.id)">
                         <img :src="follower.avatar" alt/>
                     </a>
                 </div>
-                <div class="post-userName" v-if="yourId!=follower.id">
+                <div class="post-userName">
                     <p>
                         <a @click="getUser(follower.id)" title>{{follower.username}}</a>
                     </p>
                 </div>
             </div>
-            <a :class="{btn:true, 'btn-follow':true, active:follower.isFollow}" @click="follow(follower.id, index, follower.isFollow)"
+            <a :class="{btn:true, 'btn-follow':true, active:follower.isFollow}"
+               @click="follow(follower.id, index, follower.isFollow)"
                style="margin-right: 10%"
                title v-if="follower.id != yourId">
                 <span v-if="follower.isFollow">following</span>
@@ -45,7 +46,6 @@
                 if (targetId != this.yourId) {
                     user.post(`/follow/${targetId}`).then(res => {
                         this.users[index].isFollow = !this.users[index].isFollow;
-                        this.$emit("updateSearch");
                     });
                 }
             },
