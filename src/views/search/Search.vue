@@ -17,7 +17,7 @@
                 </SearchResult>
                 <ul class="ul-list-followers" v-show="isHashtags">
                     <li :key="index" v-for="(hashtag,index) in hashtags">
-                        <div class="post-user">
+                        <div class="postuser">
                             <div class="post-avatar" style="margin-left: 10%">
                                 <a @click="goHashtagPage(hashtag.id)">
                                     <img alt src="images/hashtag.webp"/>
@@ -31,6 +31,9 @@
                         </div>
                     </li>
                 </ul>
+                <infinite-loading @infinite="infiniteHandler" spinner="spiral" v-if="keywords!=''">
+                    <span slot="no-more">...</span>
+                </infinite-loading>
             </div>
         </div>
         <Footer></Footer>
@@ -42,11 +45,22 @@
     import SearchResult from "./SearchResult";
     import axios_user from "@/axios/axios-user";
     import {eventBus} from "../../main";
+    import InfiniteLoading from "vue-infinite-loading";
+
+    function getUnique(arr, comp) {
+        const unique = arr
+            .map(e => e[comp])
+            // store the keys of the unique objects
+            .map((e, i, final) => final.indexOf(e) === i && i)
+            // eliminate the dead keys & store unique objects
+            .filter(e => arr[e]).map(e => arr[e]);
+        return unique;
+    }
 
     export default {
         name: "Search",
         components: {
-            Footer, SearchResult
+            Footer, SearchResult, InfiniteLoading
         },
         activated() {
             eventBus.$once("updateFollow", this.fetch)
@@ -67,21 +81,54 @@
         },
         watch: {
             keywords(after, before) {
+                this.currentPage = 0;
                 this.fetch();
             }
         },
         methods: {
+            infiniteHandler($state) {
+                if (this.keywords.length > 0) {
+                    console.log("call infinite");
+                    setTimeout(() => {
+                        let params = {page: this.currentPage};
+                        if (this.isUser) {
+                            params = Object.assign(params, {user: this.keywords})
+                        } else {
+                            params = Object.assign(params, {hashtag: this.keywords})
+                        }
+                        axios_user.post('/search', null, {
+                            params: params
+                        }).then(({data}) => {
+                            console.log(data.list.length);
+                            if (data.list.length) {
+                                this.currentPage += 1;
+                                if (this.isUser) {
+                                    this.users = getUnique(this.users.concat(data.list), 'id');
+                                } else if (this.isHashtags) {
+                                    this.hashtags = getUnique(this.hashtags.concat(data.list), 'id');
+                                }
+                                $state.loaded();
+                            } else {
+                                $state.complete();
+                            }
+                        }).catch(error => {
+                            console.log(error)
+                        })
+                    }, 1000)
+                }
+            },
+
             goHashtagPage(hashtagId) {
 
             },
             changeState() {
                 this.isUser = !this.isUser;
                 this.isHashtags = !this.isHashtags;
-                this.fetch()
+                this.currentPage = 0;
+                this.fetch();
             },
             fetch() {
                 if (this.keywords.length > 0) {
-                    console.log("call fetch");
                     let params = {page: this.currentPage};
                     if (this.isUser) {
                         params = Object.assign(params, {user: this.keywords})
@@ -92,12 +139,13 @@
                         params: params
                     }).then(response => {
                         if (response.status === 200) {
-                            console.log(response.data);
-                            this.totalPage = response.data.totalPage;
-                            if (this.isUser) {
-                                this.users = response.data.list
-                            } else if (this.isHashtags) {
-                                this.hashtags = response.data.list
+                            if (response.data.list) {
+                                if (this.isUser) {
+                                    console.log('fetch user')
+                                    this.users = response.data.list;
+                                } else if (this.isHashtags) {
+                                    this.hashtags = response.data.list
+                                }
                             }
                         }
                     })
@@ -149,5 +197,12 @@
     .ulbar li a:hover {
         background-color: #555;
         color: white;
+    }
+
+    .postuser {
+        display: flex !important;
+        align-items: center;
+        padding: 0 10px;
+        width: 80% !important;
     }
 </style>

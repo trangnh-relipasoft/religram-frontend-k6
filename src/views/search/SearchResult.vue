@@ -61,4 +61,10 @@
     .disableButton {
         background-color: rgb(209, 206, 206);
     }
+    .post-user{
+        display: flex !important;
+        align-items: center;
+        padding: 0 10px;
+        width: 80% !important;
+    }
 </style>
