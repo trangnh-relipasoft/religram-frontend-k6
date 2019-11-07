@@ -58,7 +58,7 @@
       @click="$router.push({name: 'postdetail', query:{id: post.id}})"
     >View all {{post.comments.length}} comments</p>
     <div class="post-comment" v-for="(comment,index) in cmShow" :key="index">
-      <comment :comment="comment" key="commentposthome"></comment>
+      <comment :comment="comment" :postID="post.id" :targetComment="comment" key="commentposthome"></comment>
     </div>
     <form @submit.prevent="postComment">
       <textarea-autosize

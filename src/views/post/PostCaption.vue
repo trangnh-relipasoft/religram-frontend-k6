@@ -35,7 +35,7 @@
         data() {
             return {
                 imgSrc: localStorage.getItem("avatar_base64_str"),
-                caption: '<a href=\"/profile\"/>',
+                caption: '',
                 username: localStorage.getItem('username'),
                 fullname: localStorage.getItem('fullname'),
                 email: localStorage.getItem('email'),
